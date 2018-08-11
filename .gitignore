@@ -1,0 +1,10 @@
+# checkpoints
+/.ipynb_checkpoints/
+/handbook_on_tf/.ipynb_checkpoints/
+/handbook_on_tf/checkpoint
+
+# tensorflow's saved models and logs
+/graphs/
+/handbook_on_tf/tf_logs/
+/handbook_on_tf/tmp/
+my_logreg_model.*
