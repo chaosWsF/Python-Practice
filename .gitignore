@@ -8,3 +8,6 @@
 /handbook_on_tf/tf_logs/
 /handbook_on_tf/tmp/
 my_logreg_model.*
+
+# leetcode's try file
+/leetcode/try.py
