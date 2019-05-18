@@ -31,6 +31,8 @@ if __name__ == '__main__':
     # input1 = 'pwwkew'
     # input1 = 'abaababa'
     # input1 = ''
-    input1 = ''
+    with open('./leetcode/tmp/problem3.txt') as fr:
+        input1 = fr.read()
+    
     sol = Solution()
     print(sol.lengthOfLongestSubstring(input1))
