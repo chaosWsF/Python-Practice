@@ -1,19 +1,34 @@
 class Solution:
     def lengthOfLongestSubstring(self, s):
-        if len(set(s)) <= 2:
+        if uniqueOrder(s) in s:
             return len(set(s))
         else:
-            result = len(s)
-            s_list = [s]
-            for _ in range(len(s)):
-                if not decideLoop(s_list, result):
-                    result -= 1
-                    s_list = [s[i:i+result] for i in range(len(s)-result+1)]
-                else:
-                    result = decideLoop(s_list, result)
-                    break
-            
-            return result
+            if len(set(s)) <= 2:
+                return len(set(s))
+            else:
+                result = len(s)
+                s_list = [s]
+                for _ in range(len(s)):
+                    if not decideLoop(s_list, result):
+                        result -= 1
+                        s_list = [s[i:i+result] for i in range(len(s)-result+1)]
+                    else:
+                        result = decideLoop(s_list, result)
+                        break
+                
+                return result
+
+
+def uniqueOrder(s):
+    seen = {}
+    ss_list = []
+    for ss in s:
+        if ss in seen:
+            continue
+        seen[ss] = 1
+        ss_list.append(ss)
+
+    return ''.join(ss_list)
 
 
 def decideLoop(strList, result):
