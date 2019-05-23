@@ -10,7 +10,7 @@ class Solution:
             while nums1[start] != bi:
                 if nums1[start] < bi:
                     start = (start + len(nums1)) // 2
-                elif nums1[start] > bi:
+                else:
                     start = (start - 1) // 2
         
         if len(nums1) % 2 == 0:
