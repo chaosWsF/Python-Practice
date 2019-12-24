@@ -1,3 +1,5 @@
+*/__pycache__/
+
 # checkpoints
 /.ipynb_checkpoints/
 /handbook_on_tf/.ipynb_checkpoints/
@@ -12,4 +14,3 @@ my_logreg_model.*
 # leetcode's file
 /leetcode/try.py
 /leetcode/tmp/
-/leetcode/__pycache__/*
