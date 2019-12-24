@@ -11,13 +11,3 @@ class Solution:
         result = (nums_all[mid[0]] + nums_all[mid[1]]) / 2
 
         return result
-
-
-if __name__ == '__main__':
-    # input1 = [1, 3]
-    # input2 = [2]
-    input1 = [1, 2]
-    input2 = [3, 4]
-    sol = Solution()
-
-    print(sol.findMedianSortedArrays(input1, input2))

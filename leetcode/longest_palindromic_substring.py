@@ -8,13 +8,3 @@ class Solution:
                 s_ij = s[j:j+i]
                 if s_ij == s_ij[::-1]:
                     return s_ij
-
-
-if __name__ == "__main__":
-
-    input = 'babad'
-    # input = 'cbbd'
-    # input = 'cbd'
-
-    sol = Solution()
-    print(sol.longestPalindrome(input))

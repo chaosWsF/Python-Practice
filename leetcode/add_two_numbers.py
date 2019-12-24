@@ -1,21 +1,3 @@
-# ===============================================
-# class Solution:
-#     def addTwoNumbers(self, l1, l2):
-#         dummy = cur = ListNode(0)
-#         carry = 0
-#         while l1 or l2 or carry:
-#             if l1:
-#                 carry += l1.val
-#                 l1 = l1.next
-#             if l2:
-#                 carry += l2.val
-#                 l2 = l2.next
-#             cur.next = ListNode(carry%10)
-#             cur = cur.next
-#             carry //= 10
-#         return dummy.next
-# ===============================================
-
 class ListNode:
     """
     Definition for singly-linked list.
@@ -73,15 +55,20 @@ def lst2link(lst):
         cur = cur.next
     return dummy.next
 
-
-if __name__ == '__main__':
-    input1 = [1]
-    input2 = [9, 9]
-    sol = Solution()
-
-    input1 = lst2link(input1)
-    input2 = lst2link(input2)
-
-    output = sol.addTwoNumbers(input1, input2)
-    print(output)
-    # print(lst2link(output))
+# ===============================================
+# class Solution:
+#     def addTwoNumbers(self, l1, l2):
+#         dummy = cur = ListNode(0)
+#         carry = 0
+#         while l1 or l2 or carry:
+#             if l1:
+#                 carry += l1.val
+#                 l1 = l1.next
+#             if l2:
+#                 carry += l2.val
+#                 l2 = l2.next
+#             cur.next = ListNode(carry%10)
+#             cur = cur.next
+#             carry //= 10
+#         return dummy.next
+# ===============================================

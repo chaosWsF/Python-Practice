@@ -1,22 +1,3 @@
-# =============================================================
-# class Solution:
-#     # @return an integer
-#     def lengthOfLongestSubstring(self, s):
-#         start = maxLength = 0
-#         usedChar = {}
-        
-#         for i in range(len(s)):
-#             if s[i] in usedChar and start <= usedChar[s[i]]:
-#                 start = usedChar[s[i]] + 1
-#             else:
-#                 maxLength = max(maxLength, i - start + 1)
-
-#             usedChar[s[i]] = i
-
-#         return maxLength
-# =============================================================
-
-
 class Solution:
     def lengthOfLongestSubstring(self, s):
         if uniqueOrder(s) in s:
@@ -59,14 +40,20 @@ def decideLoop(strList, result):
     
     return False
 
-if __name__ == '__main__':
-    # input1 = 'abcabcbb'
-    # input1 = 'bbbbb'
-    # input1 = 'pwwkew'
-    # input1 = 'abaababa'
-    # input1 = ''
-    with open('./leetcode/tmp/problem3.txt') as fr:
-        input1 = fr.read()
-    
-    sol = Solution()
-    print(sol.lengthOfLongestSubstring(input1))
+# =============================================================
+# class Solution:
+#     # @return an integer
+#     def lengthOfLongestSubstring(self, s):
+#         start = maxLength = 0
+#         usedChar = {}
+        
+#         for i in range(len(s)):
+#             if s[i] in usedChar and start <= usedChar[s[i]]:
+#                 start = usedChar[s[i]] + 1
+#             else:
+#                 maxLength = max(maxLength, i - start + 1)
+
+#             usedChar[s[i]] = i
+
+#         return maxLength
+# =============================================================
