@@ -9,7 +9,7 @@
 /handbook_on_tf/tmp/
 my_logreg_model.*
 
-# leetcode's try file
+# leetcode's file
 /leetcode/try.py
 /leetcode/tmp/
-/leetcode/__pycache__/
+/leetcode/__pycache__/*
