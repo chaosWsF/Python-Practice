@@ -1,5 +1,5 @@
 class Solution:
-    def convert(self, s: str, numRows: int) -> str:
+    def convert(self, s, numRows):
         if (numRows >= len(s)) or (numRows < 2):
             return s
         

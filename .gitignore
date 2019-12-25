@@ -14,3 +14,4 @@ my_logreg_model.*
 # leetcode's file
 /leetcode/try.py
 /leetcode/tmp/
+/leetcode/test_run.py

@@ -1,5 +1,5 @@
 class Solution:
-    def reverse(self, x: int) -> int:
+    def reverse(self, x):
         if -10 < x < 10:
             return x
         elif x <= -10:
