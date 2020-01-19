@@ -1,26 +1,8 @@
-from itertools import combinations
-
-
 class Solution:
     def twoSum(self, nums, target):
-        result = []
-        for i, j in combinations(list(range(len(nums))), 2):
-            if nums[i] + nums[j] == target:
-                result = [i, j]
-                break
-        
-        return result
-
-# =================================================================
-# hash solution
-# class Solution(object):
-#     def twoSum(self, nums, target):
-#         if len(nums) <= 1:
-#             return False
-#         buff_dict = {}
-#         for i in range(len(nums)):
-#             if nums[i] in buff_dict:
-#                 return [buff_dict[nums[i]], i]
-#             else:
-#                 buff_dict[target - nums[i]] = i
-# =================================================================
+        d = {}
+        for i, num in enumerate(nums):
+            if num in d.keys():
+                return [d[num], i]
+            
+            d[target - num] = i
