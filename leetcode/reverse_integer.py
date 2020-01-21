@@ -32,19 +32,16 @@ class Solution:
         else:
             sig = False
         
-        digits = []
+        x_reverse = 0
         while x > 0:
-            digits.append(x % 10)
+            x_reverse = x_reverse * 10 + x % 10
             x = x // 10
         
-        for i, d in enumerate(digits):
-            x += d * 10 ** (len(digits)-1-i)
-        
         if sig:
-            x = -x
+            x_reverse = -x_reverse
 
-        if -2**31 <= x < 2**31:
-            return x
+        if -2**31 <= x_reverse < 2**31:
+            return x_reverse
         else:
             return 0
 
