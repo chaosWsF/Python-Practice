@@ -26,6 +26,9 @@ assume that your function returns 0 when the reversed integer overflows.
 class Solution:
     def reverse(self, x):
         """first try"""
+        if (x >= 2**31) or (x < -2**31):
+            return 0
+        
         if -10 < x < 10:
             return x
         elif x <= -10:
@@ -40,9 +43,6 @@ class Solution:
             x = x // 10
         
         for i, d in enumerate(digits):
-            x += d * 10 ** (len(digits)-1-i)
+            x += d * 10 ** (len(digits) - 1 - i)
         
-        if -2**31 <= x < 2**31:
-            return sig * x
-        else:
-            return 0
+        return sig * x
