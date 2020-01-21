@@ -65,4 +65,43 @@ Note:
 
 class Solution:
     def numRookCaptures(self, board):
-        pass
+        """change 2-dim into 1-dim, then use mod 8 table"""
+        board_square = []
+        for row in board:
+            board_square.extend(row)
+
+        square_index = board_square.index('R')
+
+        n_pawn = 0
+
+        r_row = square_index // 8
+        for up in range(r_row):
+            if board_square[square_index - 8 * (up + 1)] == 'p':
+                n_pawn += 1
+                break
+            elif board_square[square_index - 8 * (up + 1)] == 'B':
+                break
+        
+        for down in range(7 - r_row):
+            if board_square[square_index + 8 * (down + 1)] == 'p':
+                n_pawn += 1
+                break
+            elif board_square[square_index + 8 * (down + 1)] == 'B':
+                break
+        
+        r_col = square_index % 8
+        for left in range(r_col):
+            if board_square[square_index - left - 1] == 'p':
+                n_pawn += 1
+                break
+            elif board_square[square_index - left - 1] == 'B':
+                break
+        
+        for right in range(7 - r_col):
+            if board_square[square_index + right + 1] == 'p':
+                n_pawn += 1
+                break
+            elif board_square[square_index + right + 1] == 'B':
+                break
+        
+        return n_pawn
