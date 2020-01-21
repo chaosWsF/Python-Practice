@@ -57,3 +57,23 @@ class Solution:
             return x
         else:
             return 0
+    
+    def reverse3(self, x):
+        """binary method"""
+        from math import log10
+
+        sig = pow(-1, (x < 0))
+        x = sig * x
+        n = int(log10(x)) + 1
+        # n = len(str(x))
+        for i in range(n // 2):
+            up_dig = x // 10**(n-1-i) % 10
+            low_dig = x // 10**i % 10
+            delta = up_dig - low_dig
+            x += delta * 10**i - delta * 10**(n-1-i)
+        
+        x = sig * x
+        if -2**31 <= x < 2**31:
+            return x
+        else:
+            return 0
