@@ -67,6 +67,7 @@ class Solution:
     def numRookCaptures(self, board):
         """change 2-dim into 1-dim, then use mod 8 table"""
         board = sum(board, [])
+        
         r_index = board.index('R')
         r_row = r_index // 8
         r_col = r_index % 8
@@ -84,5 +85,30 @@ class Solution:
                     break
                 elif board[r_index + ds * (one_step + 1)] == 'B':
                     break
+
+        return n_pawn
+
+    def numRookCaptures2(self, board):
+        """string method"""
+        board = sum(board, [])
+
+        r_index = board.index('R')
+        n_col = r_index % 8
+        r_row = board[r_index - n_col:r_index - n_col + 8]
+        r_col = board[n_col::8]
+
+        n_pawn = 0
+
+        rrow_str = ''.join(filter(lambda x: x != '.', r_row))
+        if 'pR' in rrow_str:
+            n_pawn += 1
+        elif 'Rp' in rrow_str:
+            n_pawn += 1
+        
+        rcol_str = ''.join(filter(lambda x: x != '.', r_col))
+        if 'pR' in rcol_str:
+            n_pawn += 1
+        elif 'Rp' in rcol_str:
+            n_pawn += 1
 
         return n_pawn
