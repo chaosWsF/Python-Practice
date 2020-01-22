@@ -102,13 +102,15 @@ class Solution:
         rrow_str = ''.join(filter(lambda x: x != '.', r_row))
         if 'pR' in rrow_str:
             n_pawn += 1
-        elif 'Rp' in rrow_str:
+    
+        if 'Rp' in rrow_str:
             n_pawn += 1
         
         rcol_str = ''.join(filter(lambda x: x != '.', r_col))
         if 'pR' in rcol_str:
             n_pawn += 1
-        elif 'Rp' in rcol_str:
+        
+        if 'Rp' in rcol_str:
             n_pawn += 1
 
         return n_pawn
