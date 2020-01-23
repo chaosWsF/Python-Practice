@@ -72,32 +72,24 @@ class Solution:
         return n
 
     def romanToInt2(self, s):
-        """reverse mapping (step = 2)"""
-        self.s = s
-        self.map_dict = {
+        """mapping (step = 1 or 2)"""
+        map_dict = {
             'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000, 
             'IV': 4, 'IX': 9, 'XL': 40, 'XC': 90, 'CD': 400, 'CM': 900
         }
-        n = 0
-        if s:
-            n += self.step_mapping()
-        
-        return n
 
-    def step_mapping(self):
-        s = self.s
-        map_dict = self.map_dict
-
-        if len(s) == 1:
-            n = map_dict[s]
-            self.s = None
-            return n
+        n = len(s)
+        if n < 2:
+            return map_dict[s]
         
-        try:
-            n = map_dict[s[-2:]]
-        except KeyError:
-            n = map_dict[s[-2]] + map_dict[s[-1]]
+        i = 0
+        result = 0
+        while i < n:
+            try:
+                result += map_dict[s[i:i + 2]]
+                i += 2
+            except KeyError:
+                result += map_dict[s[i]]
+                i += 1
         
-        self.s = s[:-2]
-
-        return n
+        return result
