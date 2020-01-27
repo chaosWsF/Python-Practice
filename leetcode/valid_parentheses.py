@@ -35,18 +35,24 @@ Example 5:
     Output: true
 """
 
+
 class Solution:
     def isValid(self, s):
+        # TODO
+    
+    def isValid2(self, s):
+        """use replace"""
         if not s:
             return True
-        
+
         if len(s) % 2 == 1:
             return False
-        
-        pars = ['()', '[]', '{}']     
+
+        pars = {'(': ')', '[': ']', '{': '}'}
         while s:
             flag = 0
-            for par in pars:
+            for par in pars.items():
+                par = ''.join(par)
                 if par in s:
                     s = s.replace(par, '')
                 else:
