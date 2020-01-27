@@ -38,7 +38,26 @@ Example 5:
 
 class Solution:
     def isValid(self, s):
-        # TODO
+        """use stack"""
+        if not s:
+            return True
+
+        if len(s) % 2 == 1:
+            return False
+        
+        pars = {')': '(', ']': '[', '}': '{'}
+        stack = []
+        for ss in s:
+            if ss in pars:
+                if len(stack) == 0:
+                    return False
+                
+                if pars[ss] == stack[-1]:
+                    stack.pop()
+            else:
+                stack.append(ss)
+        
+        return len(stack) == 0
     
     def isValid2(self, s):
         """use replace"""
