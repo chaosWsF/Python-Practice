@@ -54,4 +54,4 @@ Example 5:
 
 class Solution:
     def intToRoman(self, num):
-        pass
+        return ...
