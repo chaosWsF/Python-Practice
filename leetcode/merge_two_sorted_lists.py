@@ -9,15 +9,19 @@ Example:
     Output: 1->1->2->3->4->4
 """
 
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+from time import perf_counter
+
+
+class ListNode:
+    """singly-linked list"""
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 
 class Solution:
-    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+    def mergeTwoLists(self, l1, l2):
+        """direct solution"""
         if not (l1 or l2):
             return None
         
@@ -68,3 +72,39 @@ class Solution:
             result_next.next = l2
 
         return result
+
+
+def list2Linked(l):
+    cur = dummy = ListNode(0)
+    for e in l:
+        cur.next = ListNode(e)
+        cur = cur.next
+    return dummy.next
+
+
+def linked2List(ll):
+    l = []
+    while ll.next is not None:
+        l.append(ll.val)
+        ll = ll.next
+    l.append(ll.val)
+    return l
+
+
+if __name__ == "__main__":
+
+    input_values = [
+        [1, 2, 4],
+        [1, 3, 4]
+    ]
+    l1 = list2Linked(input_values[0])
+    l2 = list2Linked(input_values[1])
+
+    sol = Solution()
+    t0 = perf_counter()
+    l1_l2_merged = sol.mergeTwoLists(l1, l2)
+    t1 = perf_counter()
+    used_t = (t1 - t0) * 1e6
+
+    print(linked2List(l1_l2_merged))
+    print('Used time: {0:.3f} μs'.format(used_t))
