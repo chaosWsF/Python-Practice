@@ -17,8 +17,30 @@ Follow up:
 
 class Solution:
     def maxSubArray(self, nums):
-        """..."""
-        return ...
+        """dynamic programming"""
+        if len(nums) == 1:
+            return nums[0]
+        
+        if len(nums) == 2:
+            return max([nums[0], nums[1], nums[0] + nums[1]])
+        
+        sub_sums = [nums[0], nums[-1]]
+        for i in range(1, len(nums) - 1):
+            sub_sum = nums[i]
+            sub_sums.append(sub_sum)
+            j_left = i - 1
+            j_right = i + 1
+            while (j_left >= 0) and (j_right <= len(nums)-1):
+                if nums[j_left] >= nums[j_right]:
+                    sub_sum += nums[j_left]
+                    sub_sums.append(sub_sum)
+                    j_left += -1
+                else:
+                    sub_sum += nums[j_right]
+                    sub_sums.append(sub_sum)
+                    j_right += 1
+
+        return max(sub_sums)
 
     def maxSubArray2(self, nums):
         """brutal solution, bad"""
