@@ -1,9 +1,9 @@
+# cache
 */__pycache__/
 
 # checkpoints
-/.ipynb_checkpoints/
-/handbook_on_tf/.ipynb_checkpoints/
-/handbook_on_tf/checkpoint
+*/.ipynb_checkpoints/
+*/checkpoint
 
 # tensorflow's saved models and logs
 /graphs/
