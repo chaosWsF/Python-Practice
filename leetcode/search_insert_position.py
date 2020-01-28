@@ -32,33 +32,23 @@ class Solution:
         a = 0
         b = len(nums) - 1
         while nums[a] < target < nums[b]:
-            if (a + b) % 2 == 0:
-                c = (a + b) // 2
-                n_mid = nums[c]
-                if n_mid > target:
-                    b = c
-                elif n_mid == target:
-                    return c
-                else:
-                    a = c
+            c_left = (a + b) // 2
+            c_right = c_left + (a + b) % 2
+            n_mid_left = nums[c_left]
+            n_mid_right = nums[c_right]
+            if n_mid_left > target:
+                b = c_left
+            elif n_mid_left == target:
+                return c_left
+            elif n_mid_left < target <= n_mid_right:
+                return c_right
             else:
-                c_left = (a + b) // 2
-                c_right = c_left + 1
-                n_mid_left = nums[c_left]
-                n_mid_right = nums[c_right]
-                if n_mid_left > target:
-                    b = c_left
-                elif n_mid_left == target:
-                    return c_left
-                elif n_mid_left < target <= n_mid_right:
-                    return c_right
-                else:
-                    a = c_right
+                a = c_right
+        
+        if nums[a] >= target:
+            return a
+        
+        if nums[b] < target:
+            return b + 1
         else:
-            if nums[a] >= target:
-                return a
-            
-            if nums[b] < target:
-                return b + 1
-            else:
-                return b
+            return b

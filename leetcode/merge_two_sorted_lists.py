@@ -28,6 +28,7 @@ class Solution:
             else:
                 result_next.next = ListNode(l2.val)
                 l2 = l2.next
+            
             result_next = result_next.next
 
         if l1:
@@ -37,6 +38,13 @@ class Solution:
             result_next.next = l2
 
         return result.next
+
+    def mergeTwoLists2(self, l1, l2):
+        """change into list"""
+        l1 = linked2List(l1)
+        l2 = linked2List(l2)
+        result = sorted(l1 + l2)
+        return list2Linked(result)
 
 
 def list2Linked(l):
@@ -49,7 +57,6 @@ def list2Linked(l):
 def linked2List(ll):
     if not ll:
         return []
-
     l = []
     while ll.next is not None:
         l.append(ll.val)
