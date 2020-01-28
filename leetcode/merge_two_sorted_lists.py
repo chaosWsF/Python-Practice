@@ -46,6 +46,19 @@ class Solution:
         result = sorted(l1 + l2)
         return list2Linked(result)
 
+    def mergeTwoLists3(self, l1, l2):
+        """add some condition before loop"""
+        if not (l1 or l2):
+            return None
+        
+        if not l1:
+            return l2
+        
+        if not l2:
+            return l1
+        
+        # TODO
+
 
 def list2Linked(l):
     cur = ll = ListNode(0)
