@@ -17,30 +17,40 @@ Follow up:
 
 class Solution:
     def maxSubArray(self, nums):
-        """dynamic programming"""
+        """the divide and conquer approach"""
         if len(nums) == 1:
             return nums[0]
         
         if len(nums) == 2:
-            return max([nums[0], nums[1], nums[0] + nums[1]])
+            return max(nums[0], nums[1], nums[0] + nums[1])
         
-        sub_sums = [nums[0], nums[-1]]
-        for i in range(1, len(nums) - 1):
-            sub_sum = nums[i]
-            sub_sums.append(sub_sum)
-            j_left = i - 1
-            j_right = i + 1
-            while (j_left >= 0) and (j_right <= len(nums)-1):
-                if nums[j_left] >= nums[j_right]:
-                    sub_sum += nums[j_left]
-                    sub_sums.append(sub_sum)
-                    j_left += -1
+        if len(nums) % 2 == 0:
+            nums.insert(len(nums) // 2, 0)
+        
+        max_sum = max(nums[0], nums[-1])
+        i = (len(nums) - 1) // 2
+        while 0 < i < len(nums) - 1:
+            i_left = i - 1
+            i_right = i + 1
+            while (i_left >= 0) and (i_right <= len(nums)-1):
+                if nums[i_left] >= nums[i_right]:
+                    i_left -= 1
                 else:
-                    sub_sum += nums[j_right]
-                    sub_sums.append(sub_sum)
-                    j_right += 1
+                    i_right += 1
 
-        return max(sub_sums)
+            sub_array = nums[i_left+1:i_right]
+            max_sum = max(max_sum, self.maxSubArray(sub_array))
+
+            sub_sum = sum(sub_array)
+            if i_left < 0:
+                nums = [sub_sum] + nums[i_right:]
+            else:
+                nums = nums[:i_left+1] + [sub_sum]
+            max_sum = max(max_sum, self.maxSubArray(nums))
+
+            i = (len(nums) - 1) // 2
+
+        return max_sum
 
     def maxSubArray2(self, nums):
         """brutal solution, bad"""
