@@ -52,6 +52,9 @@ Internally you can think of this:
 class Solution:
     def removeDuplicates(self, nums):
         """brutal soltuion, block by block (faster than one by one)"""
+        if not nums:
+            return 0
+
         i = 0
         while i < len(nums) - 1:
             j = 1
@@ -66,6 +69,9 @@ class Solution:
 
     def removeDuplicates2(self, nums):
         """brutal soltuion, one by one"""
+        if not nums:
+            return 0
+
         i = 0
         while i < len(nums) - 1:
             if nums[i] == nums[i + 1]:
@@ -74,3 +80,19 @@ class Solution:
             else:
                 i += 1
         return len(nums)
+    
+    def removeDuplicates3(self, nums):
+        """queue"""
+        if not nums:
+            return 0
+
+        queue = [nums[0]]
+        i = 1
+        while i < len(nums):
+            if nums[i] == queue[-1]:
+                del nums[i]
+            else:
+                queue.append(nums[i])
+                i += 1
+        
+        return len(queue)
