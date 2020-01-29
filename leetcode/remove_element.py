@@ -55,6 +55,7 @@ Internally you can think of this:
 
 class Solution:
     def removeElement(self, nums, val):
+        """direct solution"""
         i = 0
         while i < len(nums):
             if nums[i] == val:
