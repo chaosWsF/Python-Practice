@@ -99,3 +99,25 @@ class Solution:
                 nums.remove(n)
 
         return len(nums)
+
+    def removeDuplicates4(self, nums):
+        """brutal solution, remove block by block (slower)"""
+        if not nums:
+            return 0
+
+        queue = nums[0]
+        i = 1
+        while i < len(nums):
+            j = 0
+            while i + j < len(nums):
+                if nums[i + j] == queue:
+                    j += 1
+                else:
+                    queue = nums[i + j]
+                    break
+            
+            if j > 0:
+                nums[i:i+j] = []
+            i += 1
+
+        return len(nums)
