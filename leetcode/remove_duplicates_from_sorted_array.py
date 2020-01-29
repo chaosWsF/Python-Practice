@@ -51,7 +51,24 @@ Internally you can think of this:
 
 class Solution:
     def removeDuplicates(self, nums):
-        """brutal soltuion, block by block (faster than one by one)"""
+        """brutal solution, del one by one"""
+        if not nums:
+            return 0
+
+        queue = nums[0]
+        i = 1
+        while i < len(nums):
+            if nums[i] == queue:
+                del nums[i]
+                # nums.pop(i)   # slow
+            else:
+                queue = nums[i]
+                i += 1
+        
+        return len(nums)
+
+    def removeDuplicates2(self, nums):
+        """brutal solution, del block by block"""
         if not nums:
             return 0
 
@@ -65,34 +82,5 @@ class Solution:
                     break
             del nums[i+1:i+j]
             i += 1
-        return len(nums)
-
-    def removeDuplicates2(self, nums):
-        """brutal soltuion, one by one"""
-        if not nums:
-            return 0
-
-        i = 0
-        while i < len(nums) - 1:
-            if nums[i] == nums[i + 1]:
-                del nums[i + 1]
-                # nums.pop(i + 1)   # slow
-            else:
-                i += 1
-        return len(nums)
-    
-    def removeDuplicates3(self, nums):
-        """queue"""
-        if not nums:
-            return 0
-
-        queue = [nums[0]]
-        i = 1
-        while i < len(nums):
-            if nums[i] == queue[-1]:
-                del nums[i]
-            else:
-                queue.append(nums[i])
-                i += 1
         
-        return len(queue)
+        return len(nums)
