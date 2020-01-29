@@ -51,7 +51,7 @@ Internally you can think of this:
 
 class Solution:
     def removeDuplicates(self, nums):
-        """brutal solution"""
+        """brutal solution, remove one by one"""
         if not nums:
             return 0
 
@@ -59,7 +59,8 @@ class Solution:
         i = 1
         while i < len(nums):
             if nums[i] == queue:
-                del nums[i]
+                # del nums[i]   # slow
+                nums[i:i+1] = []
             else:
                 queue = nums[i]
                 i += 1
