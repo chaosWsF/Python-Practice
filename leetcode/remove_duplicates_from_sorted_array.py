@@ -60,7 +60,6 @@ class Solution:
         while i < len(nums):
             if nums[i] == queue:
                 del nums[i]
-                # nums.pop(i)   # slow
             else:
                 queue = nums[i]
                 i += 1
@@ -68,8 +67,16 @@ class Solution:
         return len(nums)
 
     def removeDuplicates2(self, nums):
-        """..."""
+        """brutal solution pop/append (slower than del)"""
         if not nums:
             return 0
-        
+
+        for _ in range(len(nums)):
+            tmp = nums.pop(0)
+            if not nums:
+                nums.append(tmp)
+
+            if tmp != nums[-1]:
+                nums.append(tmp)
+
         return len(nums)
