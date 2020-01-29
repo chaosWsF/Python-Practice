@@ -51,7 +51,7 @@ Internally you can think of this:
 
 class Solution:
     def removeDuplicates(self, nums):
-        """brutal soltuion, block by block"""
+        """brutal soltuion, block by block (faster than one by one)"""
         i = 0
         while i < len(nums) - 1:
             j = 1
