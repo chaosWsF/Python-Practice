@@ -51,19 +51,26 @@ Internally you can think of this:
 
 class Solution:
     def removeDuplicates(self, nums):
-        """..."""
-
+        """brutal soltuion, block by block"""
+        i = 0
+        while i < len(nums) - 1:
+            j = 1
+            while i + j < len(nums):
+                if nums[i + j] == nums[i]:
+                    j += 1
+                else:
+                    break
+            del nums[i+1:i+j]
+            i += 1
         return len(nums)
 
     def removeDuplicates2(self, nums):
-        """brutal soltuion"""
+        """brutal soltuion, one by one"""
         i = 0
         while i < len(nums) - 1:
-            if nums[i] == nums[i+1]:
-                del nums[i+1]
-                # nums.pop(i+1)
-                # nums = nums[:i+1] + nums[i+2:]
+            if nums[i] == nums[i + 1]:
+                del nums[i + 1]
+                # nums.pop(i + 1)   # slow
             else:
                 i += 1
-        
         return len(nums)
