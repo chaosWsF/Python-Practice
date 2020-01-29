@@ -67,7 +67,7 @@ class Solution:
             return 0
 
         tmp = set(nums)
-        nums[:len(tmp)] = sorted(list(tmp))
+        nums[:len(tmp)] = sorted(list(tmp))    # no descending lists in test data
         nums[len(tmp):] = []
         
         return len(nums)
