@@ -80,3 +80,21 @@ class Solution:
                 nums.append(tmp)
 
         return len(nums)
+
+    def removeDuplicates3(self, nums):
+        """brutal solution count/remove, very slow"""
+        if not nums:
+            return 0
+        
+        if nums[0] == nums[-1]:
+            return 1
+        elif nums[0] < nums[-1]:
+            step_size = 1
+        else:
+            step_size = -1
+        
+        for n in range(nums[0], nums[-1] + step_size, step_size):
+            while nums.count(n) > 1:
+                nums.remove(n)
+
+        return len(nums)
