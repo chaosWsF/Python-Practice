@@ -59,8 +59,8 @@ class Solution:
         i = 1
         while i < len(nums):
             if nums[i] == queue:
-                # del nums[i]  
-                nums[i:i+1] = []
+                del nums[i]
+                # nums[i:i+1] = []
             else:
                 queue = nums[i]
                 i += 1
@@ -117,8 +117,8 @@ class Solution:
                     break
             
             if j > 0:
-                # del nums[i:i+j]
-                nums[i:i+j] = []
+                del nums[i:i+j]
+                # nums[i:i+j] = []
             i += 1
 
         return len(nums)
