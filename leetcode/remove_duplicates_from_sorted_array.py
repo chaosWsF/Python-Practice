@@ -51,7 +51,7 @@ Internally you can think of this:
 
 class Solution:
     def removeDuplicates(self, nums):
-        """brutal solution, remove one by one"""
+        """remove one by one"""
         if not nums:
             return 0
 
@@ -68,7 +68,7 @@ class Solution:
         return len(nums)
 
     def removeDuplicates2(self, nums):
-        """brutal solution pop/append (slower than del)"""
+        """pop/append (slower)"""
         if not nums:
             return 0
 
@@ -83,7 +83,7 @@ class Solution:
         return len(nums)
 
     def removeDuplicates3(self, nums):
-        """brutal solution count/remove, very slow"""
+        """count/remove (very slow)"""
         if not nums:
             return 0
         
