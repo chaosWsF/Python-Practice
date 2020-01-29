@@ -51,6 +51,28 @@ Internally you can think of this:
 
 class Solution:
     def removeDuplicates(self, nums):
+        """unique (ordered), assign"""
+        if not nums:
+            return 0
+
+        tmp = list(dict.fromkeys(nums))
+        nums[:len(tmp)] = tmp
+        nums[len(tmp):] = []
+        
+        return len(nums)
+
+    def removeDuplicates2(self, nums):
+        """unique (unordered), assign"""
+        if not nums:
+            return 0
+
+        tmp = set(nums)
+        nums[:len(tmp)] = sorted(list(tmp))
+        nums[len(tmp):] = []
+        
+        return len(nums)
+
+    def removeDuplicates3(self, nums):
         """remove one by one"""
         if not nums:
             return 0
@@ -59,15 +81,15 @@ class Solution:
         i = 1
         while i < len(nums):
             if nums[i] == queue:
-                del nums[i]
-                # nums[i:i+1] = []
+                # del nums[i]
+                nums[i:i+1] = []
             else:
                 queue = nums[i]
                 i += 1
         
         return len(nums)
 
-    def removeDuplicates2(self, nums):
+    def removeDuplicates4(self, nums):
         """pop/append (slower)"""
         if not nums:
             return 0
@@ -82,7 +104,7 @@ class Solution:
 
         return len(nums)
 
-    def removeDuplicates3(self, nums):
+    def removeDuplicates5(self, nums):
         """count/remove (very slow)"""
         if not nums:
             return 0
@@ -100,7 +122,7 @@ class Solution:
 
         return len(nums)
 
-    def removeDuplicates4(self, nums):
+    def removeDuplicates6(self, nums):
         """brutal solution, remove block by block (slower)"""
         if not nums:
             return 0
@@ -117,8 +139,8 @@ class Solution:
                     break
             
             if j > 0:
-                del nums[i:i+j]
-                # nums[i:i+j] = []
+                # del nums[i:i+j]
+                nums[i:i+j] = []
             i += 1
 
         return len(nums)
