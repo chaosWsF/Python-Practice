@@ -27,7 +27,30 @@ indexOf().
 
 class Solution:
     def strStr(self, haystack, needle):
+        """
+        Using str.find()
+        Removing two conditions will slow down the speed.
+        """
         if not needle:
             return 0
-        else:    
-            return haystack.find(needle)
+        
+        if not haystack:
+            return -1
+        
+        return haystack.find(needle)
+
+    def strStr2(self, haystack, needle):
+        """direct solution"""
+        if not needle:
+            return 0
+        
+        if not haystack:
+            return -1
+        
+        m = len(haystack)
+        n = len(needle)
+        for i in range(m-n+1):
+            if haystack[i:i+n] == needle:
+                return i
+        
+        return -1
