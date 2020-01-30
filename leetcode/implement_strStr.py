@@ -27,7 +27,5 @@ indexOf().
 
 class Solution:
     def strStr(self, haystack, needle):
-        if not needle:
-            return 0
-        else:    
-            return haystack.find(needle)
+        """use find"""
+        return haystack.find(needle)
