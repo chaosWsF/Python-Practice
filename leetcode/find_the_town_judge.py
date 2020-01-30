@@ -53,7 +53,7 @@ Note:
 class Solution:
     def findJudge(self, N, trust):
         """direct modelling a graph"""
-        vertex = set(range(1, N+1))
+        vertex = set(range(1, N + 1))
         edge_out = []
         edge_in = []
         for vo, vi in trust:
@@ -72,7 +72,7 @@ class Solution:
             return -1
     
     def findJudge2(self, N, trust):
-        """just calculate deg_diff = in_deg - out_dig"""
+        """calculate deg_diff = in_deg - out_dig"""
         deg_diff = [0] * N
         for vertex_out, vertex_in in trust:
             deg_diff[vertex_out - 1] -= 1
@@ -82,4 +82,21 @@ class Solution:
             if deg_diff[i] == N - 1:
                 return i + 1
         
+        return -1
+
+    def findJudge3(self, N, trust):
+        """calculate indegree firstly by adjacency matrix"""
+        non_judge = {}
+        adj_mat = [[] for _ in range(N + 1)]
+        # [[]] * (N + 1) is wrong because []s comes from 
+        # the same reference, list.append() will change all.
+
+        for edge_0, edge_1 in trust:
+            non_judge[edge_0] = 0
+            adj_mat[edge_1].append(edge_0)
+        
+        for i in range(1, N + 1):
+            if (len(adj_mat[i]) == N - 1) and (i not in non_judge):
+                return i
+
         return -1
