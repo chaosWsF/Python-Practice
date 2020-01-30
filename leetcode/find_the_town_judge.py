@@ -56,9 +56,9 @@ class Solution:
         vertex = set(range(1, N+1))
         edge_out = []
         edge_in = []
-        for edge in trust:
-            edge_out.append(edge[0])
-            edge_in.append(edge[1])
+        for vo, vi in trust:
+            edge_out.append(vo)
+            edge_in.append(vi)
         edge_zero_outdegree = vertex.difference(edge_out)
         
         if len(edge_zero_outdegree) == 1:
@@ -70,3 +70,16 @@ class Solution:
             return town_judge
         else:
             return -1
+    
+    def findJudge2(self, N, trust):
+        """just calculate deg_diff = in_deg - out_dig"""
+        deg_diff = [0] * N
+        for vertex_out, vertex_in in trust:
+            deg_diff[vertex_out - 1] -= 1
+            deg_diff[vertex_in - 1] += 1
+
+        for i in range(N):
+            if deg_diff[i] == N - 1:
+                return i + 1
+        
+        return -1
