@@ -64,3 +64,11 @@ class Solution:
                 i += 1
         
         return len(nums)
+
+    def removeElement2(self, nums, val):
+        """use filter"""
+        tmp = list(filter(lambda x: x != val, nums))
+        nums[:len(tmp)] = tmp
+        del nums[len(tmp):]
+        # nums[len(tmp):] = []
+        return len(nums)
