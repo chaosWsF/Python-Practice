@@ -98,3 +98,46 @@ class Solution:
                         j += 1
             
         return -1
+
+    def strStr4(self, haystack, needle):
+        """Z algorithm"""
+        if not needle:
+            return 0
+        
+        if not haystack:
+            return -1
+        
+        m = len(needle)
+        n = len(haystack)
+        Z_str = needle + '$' + haystack
+        Z_array = [-1]
+        L = 0    # Z_box's L
+        R = 0    # Z_box's R
+        for i in range(1, m + n + 1):
+            if i > R:
+                L = i
+                R = i
+                while R < m + n + 1 and Z_str[R - L] == Z_str[R]:
+                    R += 1
+                
+                if R - L == m:
+                    return i - m - 1
+                else:
+                    Z_array.append(R - L)
+                    R -= 1
+            else:
+                K = i - L
+                if Z_array[K] < R - i + 1:
+                    Z_array.append(Z_array[K])
+                else:
+                    L = i
+                    while R < m + n + 1 and Z_str[R - L] == Z_str[R]:
+                        R += 1
+                    
+                    if R - L == m:
+                        return i - m - 1
+                    else:
+                        Z_array.append(R - L)
+                        R -= 1
+
+        return -1
