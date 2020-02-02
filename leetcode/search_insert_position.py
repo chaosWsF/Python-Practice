@@ -51,3 +51,17 @@ class Solution:
     def searchInsert2(self, nums, target):
         """python's sorted()/list.sort()"""
         return sorted(nums + [target]).index(target)
+
+    def searchInsert3(self, nums, target):
+        """bubble sort"""
+        if nums[0] >= target:
+            return 0
+
+        for i in range(len(nums) - 1):
+            if nums[i] < target <= nums[i + 1]:
+                return i + 1
+        
+        if nums[-1] == target:
+            return len(nums) - 1
+        else:
+            return len(nums)
