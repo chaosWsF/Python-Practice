@@ -29,31 +29,27 @@ Example 4:
 
 class Solution:
     def searchInsert(self, nums, target):
-        """via median of nums"""
+        """binary search"""
         a = 0
         b = len(nums) - 1
-        while nums[a] < target < nums[b]:
-            c_left = (a + b) // 2
-            c_right = c_left + (a + b) % 2
-            if nums[c_left] >= target:
-                b = c_left
+        while a <= b:
+            c = (a + b) // 2
+            m = nums[c]
+            if m < target:
+                a = c + 1
+            elif m == target:
+                return c
             else:
-                a = c_right
+                b = c - 1
         
-        if nums[a] >= target:
-            return a
-        
-        if nums[b] < target:
-            return b + 1
-        else:
-            return b
+        return a
 
     def searchInsert2(self, nums, target):
         """python's sorted()/list.sort()"""
         return sorted(nums + [target]).index(target)
 
     def searchInsert3(self, nums, target):
-        """bubble sort"""
+        """linear search"""
         if nums[0] >= target:
             return 0
 
