@@ -29,19 +29,14 @@ Example 4:
 
 class Solution:
     def searchInsert(self, nums, target):
+        """via median of nums"""
         a = 0
         b = len(nums) - 1
         while nums[a] < target < nums[b]:
             c_left = (a + b) // 2
             c_right = c_left + (a + b) % 2
-            n_mid_left = nums[c_left]
-            n_mid_right = nums[c_right]
-            if n_mid_left > target:
+            if nums[c_left] >= target:
                 b = c_left
-            elif n_mid_left == target:
-                return c_left
-            elif n_mid_left < target <= n_mid_right:
-                return c_right
             else:
                 a = c_right
         
@@ -52,3 +47,7 @@ class Solution:
             return b + 1
         else:
             return b
+
+    def searchInsert2(self, nums, target):
+        """python's sorted()/list.sort()"""
+        return sorted(nums + [target]).index(target)
