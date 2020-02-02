@@ -29,26 +29,35 @@ Example 4:
 
 class Solution:
     def searchInsert(self, nums, target):
+        """binary search"""
         a = 0
         b = len(nums) - 1
-        while nums[a] < target < nums[b]:
-            c_left = (a + b) // 2
-            c_right = c_left + (a + b) % 2
-            n_mid_left = nums[c_left]
-            n_mid_right = nums[c_right]
-            if n_mid_left > target:
-                b = c_left
-            elif n_mid_left == target:
-                return c_left
-            elif n_mid_left < target <= n_mid_right:
-                return c_right
+        while a <= b:
+            c = (a + b) // 2
+            m = nums[c]
+            if m < target:
+                a = c + 1
+            elif m == target:
+                return c
             else:
-                a = c_right
+                b = c - 1
         
-        if nums[a] >= target:
-            return a
+        return a
+
+    def searchInsert2(self, nums, target):
+        """python's sorted()/list.sort()"""
+        return sorted(nums + [target]).index(target)
+
+    def searchInsert3(self, nums, target):
+        """linear search"""
+        if nums[0] >= target:
+            return 0
+
+        for i in range(len(nums) - 1):
+            if nums[i] < target <= nums[i + 1]:
+                return i + 1
         
-        if nums[b] < target:
-            return b + 1
+        if nums[-1] == target:
+            return len(nums) - 1
         else:
-            return b
+            return len(nums)
