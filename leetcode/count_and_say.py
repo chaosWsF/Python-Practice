@@ -39,7 +39,8 @@ Example 2:
 
 
 class Solution:
-    def countAndSay(self, n):
+    def countAndSay1(self, n):
+        """direct loop"""
         a = '1'
         for _ in range(1, n):
             a_next = []
@@ -59,3 +60,28 @@ class Solution:
             a = ''.join(a_next)
         
         return a
+    
+    def countAndSay2(self, n):
+        """recursive"""
+        a = '1'
+        for _ in range(1, n):
+            a = self.generating_digits(a)
+        return a
+    
+    def generating_digits(self, a):
+        """recursive main program"""
+        i = 0
+        a_next = []
+        while i < len(a):
+            dig = a[i]
+            j = 1
+            while i + j < len(a):
+                if a[i + j] == dig:
+                    j += 1
+                else:
+                    break
+            
+            a_next.append(str(j) + dig)
+            i += j
+        
+        return ''.join(a_next)
