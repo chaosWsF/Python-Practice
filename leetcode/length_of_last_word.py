@@ -18,4 +18,12 @@ Example:
 
 class Solution:
     def lengthOfLastWord(self, s):
-        pass
+        """split string first"""
+        str_list = s.split(' ')
+        while str_list:
+            if str_list[-1]:
+                return len(str_list[-1])
+            else:
+                str_list.pop()
+        else:
+            return 0
