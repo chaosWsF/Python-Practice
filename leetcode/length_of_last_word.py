@@ -22,7 +22,7 @@ class Solution:
         if not s:
             return 0
 
-        str_list = s.split(' ')
+        str_list = s.split()
         while str_list:
             if str_list[-1]:
                 return len(str_list[-1])
@@ -32,26 +32,29 @@ class Solution:
             return 0
 
     def lengthOfLastWord2(self, s):
-        """two pointers"""
+        """two pointers (reverse)"""
         if not s:
             return 0
 
-        sub_lens = []
-        i = 0
-        while i < len(s):
+        i = len(s) - 1
+        while i >= 0:
             if s[i] == ' ':
-                i += 1
+                i -= 1
             else:
                 sub_len = 1
-                while i + sub_len < len(s):
-                    if s[i + sub_len] == ' ':
+                while i - sub_len >= 0:
+                    if s[i - sub_len] == ' ':
                         break
                     else:
                         sub_len += 1
-                i += sub_len
-                sub_lens.append(sub_len)
-        
-        if not sub_lens:
-            return 0
+                return sub_len
         else:
-            return sub_lens[-1]
+            return 0
+
+    def lengthOfLastWord3(self, s):
+        """use str.rstrip"""
+        s = s.rstrip()
+        if s:
+            return len(s[::-1].split(maxsplit=1)[0])
+        else:
+            return 0
