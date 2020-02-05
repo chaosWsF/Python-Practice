@@ -17,8 +17,11 @@ Example:
 
 
 class Solution:
-    def lengthOfLastWord(self, s):
+    def lengthOfLastWord1(self, s):
         """split string first"""
+        if not s:
+            return 0
+
         str_list = s.split(' ')
         while str_list:
             if str_list[-1]:
@@ -27,3 +30,28 @@ class Solution:
                 str_list.pop()
         else:
             return 0
+
+    def lengthOfLastWord2(self, s):
+        """two pointers"""
+        if not s:
+            return 0
+
+        sub_lens = []
+        i = 0
+        while i < len(s):
+            if s[i] == ' ':
+                i += 1
+            else:
+                sub_len = 1
+                while i + sub_len < len(s):
+                    if s[i + sub_len] == ' ':
+                        break
+                    else:
+                        sub_len += 1
+                i += sub_len
+                sub_lens.append(sub_len)
+        
+        if not sub_lens:
+            return 0
+        else:
+            return sub_lens[-1]
