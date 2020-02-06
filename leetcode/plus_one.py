@@ -25,4 +25,36 @@ Example 2:
 
 class Solution:
     def plusOne1(self, digits):
-        pass
+        """directly plus one, then calibrate"""
+        i = len(digits) - 1
+        digits[i] += 1
+        while i >= 0:
+            if digits[i] < 10:
+                return digits
+            else:
+                digits[i] -= 10
+                if i > 0:
+                    digits[i - 1] += 1
+                else:
+                    digits = [1] + digits
+            
+            i -= 1
+        
+        return digits
+
+    def plusOne2(self, digits):
+        """find 9"""
+        n = len(digits)
+        i = n - 1
+        j = 0
+        while i >= 0:
+            while i - j >= 0:
+                if digits[i - j] == 9:
+                    j += 1
+                else:
+                    i -= j
+                    digits[i] += 1
+                    return digits[:i+1] + [0] * j
+            i -= j
+
+        return [1] + [0] * n
