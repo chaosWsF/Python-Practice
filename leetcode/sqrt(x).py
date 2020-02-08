@@ -23,7 +23,7 @@ Example 2:
 
 class Solution:
     def mySqrt(self, x):
-        """builtin, not use it!"""
+        """Not use it!"""
         return int(x**.5)
     
     def mySqrt2(self, x):
@@ -36,3 +36,21 @@ class Solution:
             x_0 = (x_0 + x / x_0) / 2
 
         return int(x_0)
+
+    def mySqrt3(self, x):
+        """Binary Search"""
+        i = 0
+        j = x
+        while i < j:
+            m = (i + j) // 2
+            if m * m > x:
+                j = m - 1
+            elif m * m == x:
+                return m
+            else:
+                i = m + 1
+        
+        if i * i > x:
+            return i - 1
+        else:
+            return i
