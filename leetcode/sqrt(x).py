@@ -27,5 +27,12 @@ class Solution:
         return int(x**.5)
     
     def mySqrt2(self, x):
-        """newton method"""
-        return x_root
+        """Newton–Raphson method"""
+        if x == 0:
+            return x
+        
+        x_0 = 1 + x / 2
+        while (int(x_0) * int(x_0) > x) or ((int(x_0) + 1) * (int(x_0) + 1) <= x):
+            x_0 = (x_0 + x / x_0) / 2
+
+        return int(x_0)
