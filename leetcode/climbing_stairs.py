@@ -54,7 +54,28 @@ class Solution:
     
     def climbStairs4(self, n):
         """Fibonacci Sequence (Recurrence)"""
-        fs = [1, 2]
-        for _ in range(2, n):
-            fs.append(fs[-2] + fs[-1])
-        return fs[n - 1]
+        f_0 = 1
+        f_1 = 1
+        for _ in range(1, n):
+            f_2 = f_0 + f_1
+            f_0 = f_1
+            f_1 = f_2
+        return f_1
+
+    def climbStairs5(self, n):
+        """Fibonacci Sequence (Matrix Form)"""
+        def fib(n):
+            """Calculate (F(n), F(n+1))"""
+            k = n // 2
+            if k == 0:
+                return (0, 1)
+            else:
+                f_0, f_1 = fib(k)
+                f_2 = f_0 * f_0 + f_1 * f_1
+                f_3 = (2 * f_0 + f_1) * f_1
+                if n % 2 == 0:
+                    return (f_2, f_3)
+                else:
+                    return (f_3, f_2 + f_3)
+        
+        return fib(n - 2)[0]
