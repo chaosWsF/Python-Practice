@@ -32,10 +32,12 @@ class Solution:
     def divide1(self, dividend, divisor):
         """Use Range Stepwise"""
         sig = (dividend > 0) ^ (divisor > 0)
-        if abs(divisor) == 1:
-            result = 1
+        dividend = abs(dividend)
+        divisor = abs(divisor)
+        if divisor == 1:
+            result = dividend
         else:
-            result = len(range(0, abs(dividend) + 1, abs(divisor))) - 1
+            result = len(range(0, dividend + 1, divisor)) - 1
 
         if sig:
             return max(-result, -2**31)
