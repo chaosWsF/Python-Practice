@@ -78,4 +78,4 @@ class Solution:
                 else:
                     return (f_3, f_2 + f_3)
         
-        return fib(n - 2)[0]
+        return fib(n + 2)[0]
