@@ -42,3 +42,11 @@ class Solution:
             i += 1
             m += 1         
             j += 1
+
+    def merge2(self, nums1, m, nums2, n):
+        """Builtin Method"""
+        if not nums2:
+            return nums1
+        
+        nums1[m:] = nums2
+        nums1.sort()
