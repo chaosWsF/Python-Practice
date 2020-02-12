@@ -46,7 +46,24 @@ class TreeNode:
 
 class Solution:
     def isSameTree(self, p, q):
-        pass
+        """BFS (20ms)"""
+        if (not p) ^ (not q):
+            return False
+        elif not (p or q):
+            return True
+
+        single_node_1 = not (p.left or p.right)
+        single_node_2 = not (q.left or q.right)
+        if single_node_1 ^ single_node_2:
+            return False
+        elif single_node_1 and single_node_2:
+            return p.val == q.val
+
+        if p.val == q.val:
+            return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+        else:
+            return False
+
 
 def lst2tree(l):
     """Convert list into Tree (BFS)"""
@@ -83,8 +100,8 @@ if __name__ == "__main__":
     # try_tree_val = [1, 2, 'null', 4, 5, 'null', 7]
     # try_tree = lst2tree(try_tree_val)
 
-    input_1 = [1, 2]
-    input_2 = [1, 'null', 2]
+    input_1 = [1, 2, 3]
+    input_2 = [1, 2, 3]
 
     input_tree_1 = lst2tree(input_1)
     input_tree_2 = lst2tree(input_2)
