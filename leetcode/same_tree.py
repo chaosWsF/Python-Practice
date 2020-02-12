@@ -46,7 +46,7 @@ class TreeNode:
 
 class Solution:
     def isSameTree(self, p, q):
-        """BFS (20ms)"""
+        """DFS (20ms)"""
         if (not p) ^ (not q):
             return False
         elif not (p or q):
@@ -63,6 +63,7 @@ class Solution:
             return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
         else:
             return False
+
 
 
 def lst2tree(l):
