@@ -48,6 +48,46 @@ class Solution:
     def isSameTree(self, p, q):
         pass
 
+def lst2tree(l):
+    """Convert list into Tree (BFS)"""
+    if (not l) or (l[0] == 'null'):
+        return TreeNode('null')
+    
+    tree = TreeNode(l[0])
+
+    i = 1
+    num_nodes = 2
+    last_level = [tree]
+    while i < len(l):
+        if i + num_nodes > len(l):
+            l += ['null'] * (i + num_nodes - len(l))
+        
+        level_nodes = l[i:i+num_nodes]
+        j = 0
+        cur_level = []
+        for cur in last_level:
+            if cur.val != 'null':
+                cur.left = TreeNode(level_nodes[j])
+                cur.right = TreeNode(level_nodes[j+1])
+                cur_level += [cur.left, cur.right]
+                j += 2
+        
+        i += num_nodes
+        num_nodes = 2 * (num_nodes - level_nodes.count('null'))
+        last_level = cur_level
+
+    return tree
+
 
 if __name__ == "__main__":
-    inputs = [1, 2, 3]
+    # try_tree_val = [1, 2, 'null', 4, 5, 'null', 7]
+    # try_tree = lst2tree(try_tree_val)
+
+    input_1 = [1, 2]
+    input_2 = [1, 'null', 2]
+
+    input_tree_1 = lst2tree(input_1)
+    input_tree_2 = lst2tree(input_2)
+
+    sol = Solution()
+    print(sol.isSameTree(input_tree_1, input_tree_2))
