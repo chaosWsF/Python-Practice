@@ -44,6 +44,7 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
 class Solution:
     def isSameTree(self, p, q):
         """DFS (20ms)"""
@@ -65,34 +66,47 @@ class Solution:
             return False
 
 
-
 def lst2tree(l):
     """Convert list into Tree (BFS)"""
     if (not l) or (l[0] == 'null'):
-        return TreeNode('null')
+        return None
     
     tree = TreeNode(l[0])
 
     i = 1
-    num_nodes = 2
-    last_level = [tree]
+    n_nodes = 2
+    cur_level = [tree]
     while i < len(l):
-        if i + num_nodes > len(l):
-            l += ['null'] * (i + num_nodes - len(l))
-        
-        level_nodes = l[i:i+num_nodes]
+        nodes = []
+        n_null = 0
+        for nn in range(n_nodes):
+            if i + nn < len(l):
+                node = l[i + nn]
+                if (not node) or (node == 'null'):
+                    n_null += 1
+                    nodes.append(None)
+                else:
+                    nodes.append(node)
+            else:
+                n_null += 1
+                nodes.append(None)
+
         j = 0
-        cur_level = []
-        for cur in last_level:
-            if cur.val != 'null':
-                cur.left = TreeNode(level_nodes[j])
-                cur.right = TreeNode(level_nodes[j+1])
-                cur_level += [cur.left, cur.right]
+        next_level = []
+        for cur in cur_level:
+            if cur:
+                if nodes[j]:
+                    cur.left = TreeNode(nodes[j])
+                
+                if nodes[j + 1]:
+                    cur.right = TreeNode(nodes[j + 1])
+                
+                next_level += [cur.left, cur.right]
                 j += 2
-        
-        i += num_nodes
-        num_nodes = 2 * (num_nodes - level_nodes.count('null'))
-        last_level = cur_level
+
+        i += n_nodes
+        n_nodes = 2 * (n_nodes - n_null)
+        cur_level = next_level
 
     return tree
 
