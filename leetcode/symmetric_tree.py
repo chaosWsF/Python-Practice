@@ -45,14 +45,18 @@ class Solution:
             return True
         
         level = [root.left, root.right]
-        while any(level):
+        n_null = 0
+        while n_null < len(level):
+            next_level = []
+            n_null = 0
             head = 0
             tail = len(level) - 1
-            next_level = []
             while head < len(level):
                 cur = level[head]
                 if cur:
                     next_level += [cur.left, cur.right]
+                else:
+                    n_null += 1
                 
                 if head < tail:
                     cur_sym = level[tail]
@@ -68,9 +72,9 @@ class Solution:
                         return False
                 else:
                     head += 1
-            
+
             level = next_level
-        
+
         return True
 
 
