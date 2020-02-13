@@ -47,20 +47,12 @@ class TreeNode:
 
 class Solution:
     def isSameTree(self, p, q):
-        """DFS (20ms)"""
+        """DFS"""
         if (not p) ^ (not q):
             return False
         elif not (p or q):
             return True
-
-        single_node_1 = not (p.left or p.right)
-        single_node_2 = not (q.left or q.right)
-        if single_node_1 ^ single_node_2:
-            return False
-        elif single_node_1 and single_node_2:
-            return p.val == q.val
-
-        if p.val == q.val:
+        elif p.val == q.val:
             return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
         else:
             return False
