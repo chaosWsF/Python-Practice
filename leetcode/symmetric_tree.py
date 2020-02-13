@@ -35,9 +35,22 @@ class TreeNode:
 
 
 class Solution:
-    def isSymmetric(self, root):
+    def isSymmetric1(self, root):
         """DFS"""
-        return True
+        if not root:
+            return True
+        
+        def helper(tr_l, tr_r):
+            if (not tr_l) ^ (not tr_r):
+                return False
+            elif not (tr_l or tr_r):
+                return True
+            elif tr_l.val != tr_r.val:
+                return False
+            else:
+                return helper(tr_l.left, tr_r.right) and helper(tr_l.right, tr_r.left)
+        
+        return helper(root.left, root.right)
     
     def isSymmetric2(self, root):
         """BFS"""
