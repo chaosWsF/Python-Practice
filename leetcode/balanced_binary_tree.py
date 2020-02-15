@@ -52,8 +52,8 @@ class Solution:
         if (not tr_l) and (not tr_r):
             return True
         elif tr_l and (not tr_r):
-            return (not tr_l.left) and (not tr_l.right)
+            return not (tr_l.left or tr_l.right)
         elif (not tr_l) and tr_r:
-            return (not tr_r.left) and (not tr_r.right)
+            return not (tr_r.left or tr_r.right)
         else:
-            return self.isBalanced(tr_l) and self.isBalanced(tr_r)
+            pass
