@@ -6,37 +6,35 @@ The garden is well fenced only if all the trees are enclosed. Your
 task is to help find the coordinates of trees which are exactly 
 located on the fence perimeter.
 
-
 Example 1:
 
-    Input: [[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]]
-    Output: [[1,1],[2,0],[4,2],[3,3],[2,4]]
+  Input: [[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]]
+  Output: [[1,1],[2,0],[4,2],[3,3],[2,4]]
 
 Example 2:
 
-    Input: [[1,2],[2,2],[4,2]]
-    Output: [[1,2],[2,2],[4,2]]
+  Input: [[1,2],[2,2],[4,2]]
+  Output: [[1,2],[2,2],[4,2]]
 
-    Even you only have trees in a line, you need to use rope to 
-    enclose them.
+  Even you only have trees in a line, you need to use rope to 
+  enclose them.
 
 Note:
-
-    All trees should be enclosed together. You cannot cut the rope
-    to enclose trees that will separate them in more than one 
-    group.
-    All input integers will range from 0 to 100.
-    The garden has at least one tree.
-    All coordinates are distinct.
-    Input points have NO order. No order required for output.
-    input types have been changed on April 15, 2019. Please reset 
-    to default code definition to get new method signature.
+  1. All trees should be enclosed together. You cannot cut the rope
+  to enclose trees that will separate them in more than one 
+  group.
+  2. All input integers will range from 0 to 100.
+  3. The garden has at least one tree.
+  4. All coordinates are distinct.
+  5. Input points have NO order. No order required for output.
+  input types have been changed on April 15, 2019. Please reset 
+  to default code definition to get new method signature.
 """
 
 
 class Solution:
     def outerTrees(self, points):
-        """Convex Hull"""
+        """Convex Hull (Grammer scan)"""
         if len(points) < 3:
             return points
         
