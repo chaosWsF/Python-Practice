@@ -41,19 +41,37 @@ Example 2:
 #         self.left = None
 #         self.right = None
 
-class Solution:
+class Solution:    
     def isBalanced(self, root):
-        """DFS"""
+        """DFS (recursive)"""
         if not root:
             return True
         
-        tr_l = root.left
-        tr_r = root.right
-        if (not tr_l) and (not tr_r):
+        def helper(tree):
+            if not tree:
+                return 0
+            
+            h_l = helper(tree.left)
+            h_r = helper(tree.right)
+            if (h_l == -1) or (h_r == -1) or (abs(h_l - h_r) > 1):
+                return -1
+
+            return max(h_l, h_r) + 1
+        
+        return helper(root) >= 0
+    
+    def isBalanced2(self, root):
+        """DFS (iteration)"""
+        if not root:
             return True
-        elif tr_l and (not tr_r):
-            return not (tr_l.left or tr_l.right)
-        elif (not tr_l) and tr_r:
-            return not (tr_r.left or tr_r.right)
-        else:
-            pass
+        
+        stack = [(root.left, root.right)]
+        h_l = 0
+        h_r = 0
+        while stack:
+            tree_l, tree_r = stack.pop()
+            
+            if abs(h_l - h_r) > 1:
+                return False
+        
+        return True
