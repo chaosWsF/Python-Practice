@@ -34,13 +34,6 @@ Example 2:
 """
 
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
 class Solution:    
     def isBalanced(self, root):
         """DFS (recursive)"""
@@ -65,13 +58,23 @@ class Solution:
         if not root:
             return True
         
-        stack = [(root.left, root.right)]
-        h_l = 0
-        h_r = 0
+        stack = [root]
+        depth = {None: 0}
         while stack:
-            tree_l, tree_r = stack.pop()
-            
-            if abs(h_l - h_r) > 1:
-                return False
+            tree = stack[-1]
+            tr_l = tree.left
+            tr_r = tree.right          
+            if tr_l and (tr_l not in depth):
+                stack.append(tr_l)
+            elif tr_r and (tr_r not in depth):
+                stack.append(tr_r)
+            else:            
+                if not (tr_l or tr_r):
+                    depth[tree] = 1
+                else:
+                    if abs(depth[tr_l] - depth[tr_r]) > 1:
+                        return False
+                    depth[tree] = max(depth[tr_l], depth[tr_r]) + 1
+                stack.pop()
         
         return True
