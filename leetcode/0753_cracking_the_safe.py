@@ -14,20 +14,20 @@ the box at some point of entering it.
 
 Example 1:
 
-  Input: n = 1, k = 2
-  Output: "01"
-  Note: "10" will be accepted too.
+    Input: n = 1, k = 2
+    Output: "01"
+    Note: "10" will be accepted too.
 
 Example 2:
 
-  Input: n = 2, k = 2
-  Output: "00110"
-  Note: "01100", "10011", "11001" will be accepted too.
+    Input: n = 2, k = 2
+    Output: "00110"
+    Note: "01100", "10011", "11001" will be accepted too.
 
 Note:
-  1. n will be in the range [1, 4].
-  2. k will be in the range [1, 10].
-  3. k^n will be at most 4096.
+    1. n will be in the range [1, 4].
+    2. k will be in the range [1, 10].
+    3. k^n will be at most 4096.
 """
 
 
