@@ -33,8 +33,8 @@ Note:
 
 
 class Solution:
-    def outerTrees(self, points):
-        """Convex Hull (Grammer scan)"""
+    def outerTrees1(self, points):
+        """Jarvis Algorithm"""
         if len(points) < 3:
             return points
         
@@ -99,3 +99,6 @@ class Solution:
 
         pset.extend(p0s)
         return pset
+
+    def outerTrees2(self, points):
+        pass
