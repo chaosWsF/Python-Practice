@@ -1,4 +1,4 @@
-"""
+r"""
 Given a binary tree and a sum, determine if the tree has a 
 root-to-leaf path such that adding up all the values along the 
 path equals the given sum.
@@ -29,7 +29,7 @@ sum is 22.
 #         self.right = None
 
 class Solution:
-    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
+    def hasPathSum(self, root, sum):
         """DFS"""
         if not root:
             return False
@@ -38,3 +38,33 @@ class Solution:
             return root.val == sum
         else:
             return self.hasPathSum(root.left, sum - root.val) or self.hasPathSum(root.right, sum - root.val)
+
+    def hasPathSum2(self, root, sum):
+        """BFS"""
+        if not root:
+            return False
+        
+        cur_level = [root]
+        cur_sums = [sum]
+        while cur_level:
+            next_level = []
+            next_sums = []
+            for node, cur_sum in zip(cur_level, cur_sums):
+                if not (node.left or node.right):
+                    if cur_sum == node.val:
+                        return True
+                    else:
+                        continue
+
+                if node.left:
+                    next_level.append(node.left)
+                    next_sums.append(cur_sum - node.val)
+                
+                if node.right:
+                    next_level.append(node.right)
+                    next_sums.append(cur_sum - node.val)
+            
+            cur_level = next_level
+            cur_sums = next_sums
+
+        return False
