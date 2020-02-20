@@ -19,14 +19,14 @@ Example:
 
 class Solution:
     def generate1(self, numRows):
-        """recurrence"""
+        """half recurrence (24ms)"""
         result = []
         for n in range(1, numRows + 1):
             cur = [1] + [result[-1][i - 1] + result[-1][i] for i in range(1, (n - 1) // 2 + 1)]
             result.append(cur + cur[:(n // 2)][::-1])
         return result
     
-        # # faster
+        # # faster (20ms)
         # if numRows == 0:
         #     return []
         
@@ -36,3 +36,18 @@ class Solution:
         #     result.append(cur + cur[:(n // 2)][::-1])
         
         # return result
+
+    def generate2(self, numRows):
+        """add a zero (24ms)"""
+        result = []
+        cur = [1]
+        for i in range(numRows):
+            j = i
+            while j > 0:
+                cur[j] += cur[j - 1]
+                j -= 1
+            
+            cur.append(0)
+            result.append(cur[:i + 1])
+
+        return result
