@@ -34,3 +34,15 @@ class Solution:
             row = [1] + [row[i] + row[i + 1] for i in range((n - 1) // 2)]
             row += row[:(n // 2)][::-1]    
         return row
+
+    def getRow3(self, rowIndex):
+        """Binominal coefficients (20ms)"""
+        row = [1]
+        for k in range(1, rowIndex + 1):
+            row.append(int(row[-1] * (rowIndex + 1 - k) / k))
+        return row
+    
+    def getRow4(self, rowIndex):
+        """comb (24ms)"""
+        from math import comb
+        return [comb(rowIndex + 1, k) for k in range(rowIndex + 1)]
