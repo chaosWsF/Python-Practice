@@ -16,11 +16,8 @@ Example 2:
 
 
 class Solution:
-    def isPalindrome(self, s):
-        """two pointers"""
-        if not s:
-            return True
-
+    def isPalindrome1(self, s):
+        """two pointers (44ms)"""
         i = 0
         j = len(s) - 1
         while i < j:
@@ -39,3 +36,22 @@ class Solution:
                 j -= 1
         
         return True
+
+    def isPalindrome2(self, s):
+        """filter firstly (32ms)"""
+        if not s:
+            return True
+        
+        f = filter(str.isalnum, s)
+        s = "".join(f).lower()
+        n = len(s)
+        for i in range(n // 2):
+            if s[i] != s[n - 1 - i]:
+                return False
+        
+        return True
+
+    def isPalindrome3(self, s):
+        """builtin (28ms)"""
+        s = "".join(filter(str.isalnum, s)).lower()
+        return s == s[::-1]
