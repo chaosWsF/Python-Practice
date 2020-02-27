@@ -19,28 +19,34 @@ Example:
 
 
 class MinStack:
-    """ ms"""
+    """52 ms"""
     def __init__(self):
         """
         initialize your data structure here.
         """
-        
+        self.stack = []
+        self.min = float('inf')
 
     def push(self, x: int) -> None:
-        pass
+        self.stack.append(x)
+        self.min = min(self.min, x)
 
     def pop(self) -> None:
-        pass
+        if self.stack.pop() == self.min:
+            if self.stack:
+                self.min = min(self.stack)
+            else:
+                self.min = float('inf')
 
     def top(self) -> int:
-        pass
+        return self.stack[-1]
 
     def getMin(self) -> int:
-        pass
+        return self.min
 
 
 class MinStack2:
-    """Use list (780ms)"""
+    """780 ms"""
     def __init__(self):
         """
         initialize your data structure here.
