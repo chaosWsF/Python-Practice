@@ -41,7 +41,7 @@ Notes:
 
 class Solution:
     def getIntersectionNode(self, headA, headB):
-        """Hashtable (152ms)"""
+        """Hashtable"""
         d = {}
         while headA:
             d[headA] = 1
@@ -54,18 +54,27 @@ class Solution:
                 headB = headB.next
         
     def getIntersectionNode2(self, headA, headB):
-        """Two Pointers"""
-        i = headA
-        j = headB
-        while i or j:
-            if not i:
-                i = headB
+        """
+        Two Pointers: 
+            Let len(headA) -> m, len(headB) -> n.
+            To ensure the compared lists have the same length, we concatenate them, l_1.e. 
+            comparing l_1 = headA + headB with l_2 = headB + headA.
+            Then intersection between l_1 and l_2 equals to intersection between headB and headA.
+        """
+        if (not headA) or (not headB):
+            return None
+        
+        l_1 = headA
+        l_2 = headB
+        while l_1 or l_2:
+            if not l_1:
+                l_1 = headB
             
-            if not j:
-                j = headA
+            if not l_2:
+                l_2 = headA
             
-            if i == j:
-                return i
+            if l_1 == l_2:
+                return l_1
             
-            i = i.next
-            j = j.next
+            l_1 = l_1.next
+            l_2 = l_2.next
