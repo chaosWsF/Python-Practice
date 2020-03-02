@@ -19,7 +19,3 @@ class Solution:
         """160ms (99.45%) 14MB (100%)"""
         nums.sort()
         return nums[len(nums) // 2]
-
-    def majorityElement2(self, nums):
-        """Bit Manipulation"""
-        pass
