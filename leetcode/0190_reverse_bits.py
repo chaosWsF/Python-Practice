@@ -30,5 +30,29 @@ Follow up:
 
 
 class Solution:
-    def reverseBits(self, n):
-        pass
+    def reverseBits1(self, n):
+        """bin and str, 24ms"""
+        tmp = bin(n)[::-1][:-2]
+        if len(tmp) < 32:
+            tmp += (32 - len(tmp)) * '0'
+        return int(tmp, 2)
+
+    def reverseBits2(self, n):
+        """bin and int, 24ms"""
+        res = 0
+        i = 0
+        while n > 0:
+            res = 2 * res + n % 2
+            n >>= 1
+            i += 1
+        
+        if i < 32:
+            res <<= 32 - i
+        
+        return res
+
+    def reverseBits3(self, n):
+        return int(str(bin(n)[2:].zfill(32)[::-1]), 2)
+    
+    def reverseBits4(self, n):
+        return int('{0:032b}'.format(n)[::-1], 2)
