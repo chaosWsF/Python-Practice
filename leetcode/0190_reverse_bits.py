@@ -51,8 +51,8 @@ class Solution:
         
         return res
 
-    def reverseBits3(self, n):
+    def reverseBits3(self, n):    # bytes.zfill, 24ms
         return int(str(bin(n)[2:].zfill(32)[::-1]), 2)
     
-    def reverseBits4(self, n):
+    def reverseBits4(self, n):    # format, 16ms
         return int('{0:032b}'.format(n)[::-1], 2)
