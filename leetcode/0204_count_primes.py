@@ -9,30 +9,11 @@ Example:
 
 
 class Solution:
-    def countPrimes1(self, n):
-        """sieve of Eratosthenes"""
-        d = [True] * (n + 1)
-        res = 0
-        for i in range(2, int(n ** .5) + 1):
-            if d[i]:
-                j = i * i
-                while j < n:
-                    if d[j]:
-                        d[j] = False
-                        res += 1
-                    j += i
+    def countPrimes(self, n):
+        """sieve of Eratosthenes (80ms)"""
+        nums = [True] * n
+        for i in range(3, int(n ** .5) + 1, 2):
+            if nums[i]:
+                nums[i*i::2*i] = [False] * ((n - i * i - 1) // (2 * i) + 1)
         
-        return n - 2 - res if n > 2 else 0
-
-    def countPrimes2(self, n):
-        """Euler's sieve"""
-        nums = list(range(3, n, 2))
-        ps = [2]
-        while nums:
-            p = nums[0]
-            ps.append(p)
-            for i in range(0, len(nums), p):
-                nums[i] = 0
-            nums = list(filter(None, nums))
-        
-        return len(ps) if n > 2 else 0
+        return len(list(filter(None, nums[3::2]))) + 1 if n > 2 else 0
