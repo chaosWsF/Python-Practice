@@ -74,4 +74,4 @@ class Solution:
         return len(set(t)) == len(char_map)
 
     def isIsomorphic4(self, s, t):
-        return len(set(s)) == len(set(t)) == len(dict(zip(s, t)))
+        return len(set(s)) == len(set(t)) == len(set(zip(s, t)))
