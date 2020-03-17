@@ -47,10 +47,10 @@ class Solution:
         
         while stack:
             tree = stack.pop()
-            # tree_r = tree.right
-            # while tree_r:
-            #     stack.append(tree_r)
-            #     tree_r = tree_r.left
+            tree_r = tree.right
+            while tree_r:
+                stack.append(tree_r)
+                tree_r = tree_r.left
             
             tmp = tree.left
             tree.left = tree.right
