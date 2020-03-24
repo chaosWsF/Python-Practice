@@ -17,6 +17,7 @@ Output: ["1->2->5", "1->3"]
 
 Explanation: All root-to-leaf paths are: 1->2->5, 1->3
 """
+from collections import deque
 
 
 # Definition for a binary tree node.
@@ -30,18 +31,17 @@ class Solution:
     def binaryTreePaths(self, root):
         """Iteration"""
         if not root:
-            return 
+            return []
         
-        result = []
         stack = [root]
-        paths = [str(root.val)]
+        paths = deque([str(root.val)])
         while stack:
             cur = stack.pop()
             cur_path = paths.pop()
             cur_left = cur.left
             cur_right = cur.right
             if not (cur_right or cur_left):
-                result.append(cur_path)
+                paths.appendleft(cur_path)
             else:
                 if cur_right:
                     stack.append(cur_right)
@@ -51,28 +51,23 @@ class Solution:
                     stack.append(cur_left)
                     paths.append(cur_path + '->' + str(cur.left.val))
 
-        return result
+        return paths
 
     def binaryTreePaths2(self, root):
-        """Recursion"""
-        if not root:
-            return []
-        
-        return self.get_path(root, [])
+        """Recursion"""        
+        return self.get_paths(root, []) if root else []
     
-    def get_path(self, root, paths):
-        
+    def get_paths(self, root, paths):
         if not (root.left or root.right):
             return ['->'.join(paths + [str(root.val)])]
         else:
             paths.append(str(root.val))
-            left_path = []
-            right_path = []
+            new_paths = []
             if root.left:
-                left_path = self.get_path(root.left, paths)
+                new_paths += self.get_paths(root.left, paths)
             
             if root.right:
-                right_path = self.get_path(root.right, paths)
+                new_paths += self.get_paths(root.right, paths)
 
             paths.pop()
-            return left_path + right_path
+            return new_paths
