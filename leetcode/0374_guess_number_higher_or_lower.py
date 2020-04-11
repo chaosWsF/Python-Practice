@@ -28,7 +28,7 @@ class Solution:
         while a <= b:
             c = (a + b) // 2
             tmp = guess(c)
-            if tmp == 1:
+            if tmp == -1:
                 b = c - 1
             elif tmp == 0:
                 return c
