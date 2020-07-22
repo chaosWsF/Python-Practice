@@ -45,10 +45,10 @@ class Solution:
 
     def projectionArea2(self, grid):
         """slower"""
-        R, res = len(grid), 0
-        for r in range(R):
+        N, res = len(grid), 0
+        for r in range(N):
             max_row = max_col = 0
-            for c in range(R):
+            for c in range(N):
                 if grid[r][c] > 0:
                     res += 1
 
