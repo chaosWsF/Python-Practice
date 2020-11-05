@@ -84,7 +84,10 @@ class Solution:
                 grids[3 * x + y] = 'O'
                 player = 'B'
             
-            if checker(grids[:3]) or checker(grids[3:6]) or checker(grids[6:]) or checker(grids[::3]) or checker(grids[1::3]) or checker(grids[2::3]) or checker(grids[::4]) or checker(grids[2:7:2]):
+            if (
+                checker(grids[:3]) or checker(grids[3:6]) or checker(grids[6:]) or checker(grids[::3]) or 
+                checker(grids[1::3]) or checker(grids[2::3]) or checker(grids[::4]) or checker(grids[2:7:2])
+            ):
                 return player
         
         return 'Draw' if i == 8 else 'Pending'
