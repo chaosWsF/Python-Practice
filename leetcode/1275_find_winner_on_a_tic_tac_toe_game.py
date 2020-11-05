@@ -68,7 +68,7 @@ Constraints:
 
 
 class Solution:
-    def tictactoe(self, moves) -> str:
+    def tictactoe(self, moves) -> str:    # 36ms
         grids = [None] * 9
         
         def checker(lst) -> bool:
@@ -88,3 +88,25 @@ class Solution:
                 return player
         
         return 'Draw' if i == 8 else 'Pending'
+    
+    def tictactoe2(self, moves) -> str:    # 28ms
+        A = [0] * 8
+        B = [0] * 8
+        
+        for i in range(len(moves)):
+            x, y = moves[i]
+            player = B if i % 2 else A
+            player[x] += 1
+            player[y+3] += 1
+            if x == y:
+                player[6] += 1
+            if x == 2-y:
+                player[7] += 1
+            
+        for i in range(8):
+            if A[i] == 3:
+                return 'A'
+            if B[i] == 3:
+                return 'B'
+        
+        return 'Draw' if len(moves) == 9 else 'Pending'
