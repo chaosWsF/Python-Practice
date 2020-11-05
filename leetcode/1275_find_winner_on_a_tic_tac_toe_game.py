@@ -77,14 +77,14 @@ class Solution:
         
         for i in range(len(moves)):
             x, y = moves[i]
-            if i % 2:
+            if i % 2 == 0:
                 grids[3 * x + y] = 'X'
                 player = 'A'
             else:
                 grids[3 * x + y] = 'O'
                 player = 'B'
             
-            if check(girds[:3]) or check(grids[3:6]) or check(grids[6:]) or check(grids[::3]) or check(grids[1::3]) or check(grids[2::3]) or check(grids[::4]) or check(grids[2:7:2]):
+            if checker(grids[:3]) or checker(grids[3:6]) or checker(grids[6:]) or checker(grids[::3]) or checker(grids[1::3]) or checker(grids[2::3]) or checker(grids[::4]) or checker(grids[2:7:2]):
                 return player
         
-        return 'Draw' if i == 9 else 'Pending'
+        return 'Draw' if i == 8 else 'Pending'
