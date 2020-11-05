@@ -68,5 +68,23 @@ Constraints:
 
 
 class Solution:
-    def tictactoe(self, moves: List[List[int]]) -> str:
-        pass
+    def tictactoe(self, moves) -> str:
+        grids = [None] * 9
+        
+        def checker(lst) -> bool:
+            tmp = set(lst)
+            return (None not in tmp) and (len(tmp) == 1)
+        
+        for i in range(len(moves)):
+            x, y = moves[i]
+            if i % 2:
+                grids[3 * x + y] = 'X'
+                player = 'A'
+            else:
+                grids[3 * x + y] = 'O'
+                player = 'B'
+            
+            if check(girds[:3]) or check(grids[3:6]) or check(grids[6:]) or check(grids[::3]) or check(grids[1::3]) or check(grids[2::3]) or check(grids[::4]) or check(grids[2:7:2]):
+                return player
+        
+        return 'Draw' if i == 9 else 'Pending'
