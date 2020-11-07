@@ -12,4 +12,5 @@
 my_logreg_model.*
 
 # editor settings
+.vscode/
 */.vscode/
