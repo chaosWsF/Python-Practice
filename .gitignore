@@ -10,3 +10,6 @@
 /handbook_on_tf/tf_logs/
 /handbook_on_tf/tmp/
 my_logreg_model.*
+
+# editor settings
+*/.vscode/
