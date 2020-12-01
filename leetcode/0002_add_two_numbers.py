@@ -1,3 +1,35 @@
+"""
+You are given two non-empty linked lists representing two non-negative integers. The digits 
+are stored in reverse order, and each of their nodes contains a single digit. Add the two 
+numbers and return the sum as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Example 1:
+
+    https://assets.leetcode.com/uploads/2020/10/02/addtwonumber1.jpg
+
+    Input: l1 = [2,4,3], l2 = [5,6,4]
+    Output: [7,0,8]
+    Explanation: 342 + 465 = 807.
+
+Example 2:
+
+    Input: l1 = [0], l2 = [0]
+    Output: [0]
+
+Example 3:
+
+    Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+    Output: [8,9,9,9,0,0,0,1]
+
+Constraints:
+    1. The number of nodes in each linked list is in the range [1, 100].
+    2. 0 <= Node.val <= 9
+    3. It is guaranteed that the list represents a number that does not have leading zeros.
+"""
+
+
 class ListNode:
     """
     Definition for singly-linked list.
@@ -8,67 +40,19 @@ class ListNode:
 
 
 class Solution:
-    def addTwoNumbers(self, l1, l2):
-        l1, l2 = convertLinkedList(l1), convertLinkedList(l2)
-        l1, l2 = equalLen(l1, l2)
-        result = list(map(lambda x: x[0] + x[1], zip(l1, l2)))
-        if len(result) > 1:
-            for i in range(len(result)):
-                if result[i] > 9:
-                    result[i] = result[i] - 10
-                    if i < len(result) - 1:
-                        result[i + 1] = result[i + 1] + 1
-                    else:
-                        result.append(1)
-        else:
-            if result[0] > 9:
-                    result[0] = result[0] - 10
-                    result.append(1)
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        dummy = cur = ListNode(0)
+        carrier = 0
+        while l1 or l2 or (carrier == 1):
+            if l1:
+                carrier += l1.val
+                l1 = l1.next
+            
+            if l2:
+                carrier += l2.val
+                l2 = l2.next
+            
+            carrier, val = divmod(carrier, 10)
+            cur = cur.next = ListNode(val)
         
-        return result
-
-
-def convertLinkedList(ll):
-    l = []
-    while ll.next is not None:
-        l.append(ll.val)
-        ll = ll.next
-    
-    l.append(ll.val)
-    
-    return l
-
-
-def equalLen(l1, l2):
-    if len(l1) > len(l2):
-        return l1, l2 + ([0] * (len(l1)-len(l2)))
-    elif len(l1) < len(l2):
-        return l1 + ([0] * (len(l2)-len(l1))), l2
-    else:
-        return l1, l2
-
-
-def lst2link(lst):
-    cur = dummy = ListNode(0)
-    for e in lst:
-        cur.next = ListNode(e)
-        cur = cur.next
-    return dummy.next
-
-# ===============================================
-# class Solution:
-#     def addTwoNumbers(self, l1, l2):
-#         dummy = cur = ListNode(0)
-#         carry = 0
-#         while l1 or l2 or carry:
-#             if l1:
-#                 carry += l1.val
-#                 l1 = l1.next
-#             if l2:
-#                 carry += l2.val
-#                 l2 = l2.next
-#             cur.next = ListNode(carry%10)
-#             cur = cur.next
-#             carry //= 10
-#         return dummy.next
-# ===============================================
+        return dummy.next
