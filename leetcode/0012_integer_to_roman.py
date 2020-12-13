@@ -55,18 +55,19 @@ Example 5:
     Input: 1994
     Output: "MCMXCIV"
     Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+
+Constraints:
+    1 <= num <= 3999
 """
 
 
 class Solution:
-    def intToRoman1(self, num):
-        """use division"""
+    def intToRoman1(self, num: int) -> str:
         bases = [1000, 100, 10, 1]
         romans = ['M', 'D', 'C', 'L', 'X', 'V', 'I']
         s = ''
         for i, base in enumerate(bases):
-            digit = num // base
-            num = num % base
+            digit, num = divmod(num, base)
             if digit < 4:
                 s += romans[2 * i] * digit
             elif digit == 4:
@@ -74,6 +75,24 @@ class Solution:
             elif digit < 9:
                 s += romans[2 * i - 1] + romans[2 * i] * (digit - 5)
             else:
-                s += romans[2 * i] + romans[2 * i - 2]
+                s += romans[2 * i] + romans[2 * (i - 1)]
         
         return s
+    
+    def intToRoman2(self, num: int) -> str:    # faster
+        mapping_lst = [
+            (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'), 
+            (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'), 
+            (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1, 'I')
+        ]
+        res = ''
+        i = 0
+        while num > 0:
+            base, rom = mapping_lst[i]
+            while num >= base:
+                res += rom
+                num -= base
+            else:
+                i += 1
+
+        return res
