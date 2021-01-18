@@ -38,4 +38,21 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        pass
+        n = len(nums)
+        i = n - 1
+        while i > 0 and nums[i] <= nums[i-1]:
+            i -= 1
+        
+        if i == 0:
+            nums.sort()
+        else:
+            j = i + 1
+            while j < n and nums[i-1] < nums[j]:
+                j += 1
+            
+            nums[i-1], nums[j-1] = nums[j-1], nums[i-1]
+            a, b = i, n-1
+            while a < b:
+                nums[a], nums[b] = nums[b], nums[a]
+                a += 1
+                b -= 1
