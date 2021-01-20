@@ -30,6 +30,43 @@ Constraints:
 
 
 class Solution:
+    def searchRange4(self, nums: List[int], target: int) -> List[int]:
+        """
+        bisect.bisect_left() and bisect.bisect_right(), O(log n)
+        Runtime: 68ms
+        """
+        def bisearch_l() -> int:
+            i = -1
+            l, r = 0, len(nums) - 1
+            while l <= r:
+                m = (l + r) // 2
+                if nums[m] >= target:
+                    r = m - 1
+                else:
+                    l = m + 1
+                
+                if nums[m] == target:
+                    i = m
+            
+            return i
+
+        def bisearch_r() -> int:
+            i = -1
+            l, r = 0, len(nums) - 1
+            while l <= r:
+                m = (l + r) // 2
+                if nums[m] > target:
+                    r = m - 1
+                else:
+                    l = m + 1
+                
+                if nums[m] == target:
+                    i = m
+            
+            return i
+
+        return [bisearch_l(), bisearch_r()]
+
     def searchRange1(self, nums: List[int], target: int) -> List[int]:
         """
         Binary search: O(log n), the worst case n + log n
