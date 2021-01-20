@@ -33,22 +33,23 @@ class Solution:
     def searchRange1(self, nums: List[int], target: int) -> List[int]:
         """
         Binary search: O(log n), the worst case n + log n
-        Runtime: 84ms
+        Runtime: 72ms
         """
         if not nums:
             return [-1, -1]
         
         l, r = 0, len(nums) - 1
-        while l <= r:
+        hit = False
+        while (l <= r) and (not hit):
             m = (l + r) // 2
             if nums[m] > target:
                 r = m - 1
             elif nums[m] == target:
-                break
+                hit = True
             else:
                 l = m + 1
         
-        if nums[m] != target:
+        if not hit:
             return [-1, -1]
         
         i = j = m
@@ -62,7 +63,7 @@ class Solution:
 
     def searchRange2(self, nums: List[int], target: int) -> List[int]:
         """
-        Linear search: O(n), the worst case 2*n
+        Linear search: O(n), the worst case 2 * n
         Runtime: 80ms
         """        
         l = -1
@@ -81,3 +82,47 @@ class Solution:
                 break
         
         return [l, r]
+
+    def searchRange3(self, nums: List[int], target: int) -> List[int]:
+        """
+        Binary search combination: O(log n), the worst case (log n) * (log n)
+        Runtime: 84ms
+        """
+        if not nums:
+            return [-1, -1]
+        
+        def bi_search(l: int, r: int) -> (int, bool):
+            """
+            Given nums and target,
+            """
+            while l <= r:
+                m = (l + r) // 2
+                if nums[m] > target:
+                    r = m - 1
+                elif nums[m] == target:
+                    return m, True
+                else:
+                    l = m + 1
+            
+            return -1, False
+        
+        n = len(nums) - 1
+        i, hit = bi_search(0, n)
+
+        if not hit:
+            return [-1, -1]
+        
+        i_1 = i_2 = i
+        hit_1 = hit_2 = hit
+
+        while hit_1:
+            tmp, hit_1 = bi_search(0, i_1 - 1)
+            if hit_1:
+                i_1 = tmp
+        
+        while hit_2:
+            tmp, hit_2 = bi_search(i_2 + 1, n)
+            if hit_2:
+                i_2 = tmp
+        
+        return [i_1, i_2]
