@@ -75,3 +75,41 @@ class Solution:
                     return False
         
         return True
+    
+    def isValidSudoku2(self, board) -> bool:
+        """
+        Three loops
+        Runtime: 88ms
+        """
+        for x in board:
+            check_row = set()
+            for s in x:
+                if s != '.':
+                    if s in check_row:
+                        return False
+                    else:
+                        check_row.add(s)
+        
+        for c in range(9):
+            check_col = set()
+            for r in range(9):
+                s = board[r][c]
+                if s != '.':
+                    if s in check_col:
+                        return False
+                    else:
+                        check_col.add(s)
+        
+        for r in range(0, 9, 3):
+            for c in range(0, 9 ,3):
+                check_box = set()
+                for i in range(3):
+                    for j in range(3):
+                        s = board[r+i][c+j]
+                        if s != '.':
+                            if s in check_box:
+                                return False
+                            else:
+                                check_box.add(s)
+        
+        return True
