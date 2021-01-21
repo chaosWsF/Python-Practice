@@ -48,6 +48,30 @@ Constraints:
     3. board[i][j] is a digit or '.'.
 """
 
+import numpy as np
+
+
 class Solution:
-    def isValidSudoku(self, board: List[List[str]]) -> bool:
-        pass
+    def isValidSudoku1(self, board) -> bool:
+        """
+        A numpy-style solution
+        Runtime: 220ms
+        """
+        def is_rep(a) -> bool:
+            a_filtered = a[a != '.']
+            a_filtered = a[np.where(a != '.')]
+            return len(set(a_filtered)) != len(a_filtered)
+        
+        board = np.array(board)
+        check_col = np.apply_along_axis(is_rep, 0, board)
+        check_row = np.apply_along_axis(is_rep, 1, board)
+        if any(check_col) or any(check_row):
+            return False
+        
+        for i in range(0, 9, 3):
+            for j in range(0, 9, 3):
+                box = board[i:i+3, j:j+3].flatten()
+                if is_rep(box):
+                    return False
+        
+        return True
