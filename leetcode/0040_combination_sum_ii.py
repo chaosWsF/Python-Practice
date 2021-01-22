@@ -35,26 +35,28 @@ Constraints:
 
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        """
+        Recursion
+        Runtime: 40ms
+        """
         candidates.sort()
 
         def helper(nums, t: int):
-            if len(nums) == 1:
-                if t % nums[0] == 0:
-                    return [nums * (t // nums[0])]
-                else:
-                    return []
-            
             res = []
+            used = set()
             for i, x in enumerate(nums):
-                if x > t:
-                    return res
-                elif x == t:
-                    res.append([x])
-                    return res
-                
-                next_comb = helper(nums[i:], t - x)
-                for l in next_comb:
-                    res.append([x] + l)
+                if x not in used:
+                    if x > t:
+                        return res
+                    elif x == t:
+                        res.append([x])
+                        return res
+                    
+                    used.add(x)
+                    if i < len(nums) - 1:
+                        next_comb = helper(nums[i+1:], t - x)
+                        for l in next_comb:
+                            res.append([x] + l)
 
             return res
         
