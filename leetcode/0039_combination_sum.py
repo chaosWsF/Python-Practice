@@ -52,23 +52,27 @@ class Solution:
         Recursion
         Runtime: 44ms
         """
-        if len(candidates) == 1:
-            if target % candidates[0] == 0:
-                return [candidates * (target // candidates[0])]
-            else:
-                return []
-        
         candidates.sort()
-        res = []
-        for i, x in enumerate(candidates):
-            if x > target:
-                return res
-            elif x == target:
-                res.append([x])
-                return res
-            
-            next_comb = self.combinationSum(candidates[i:], target - x)
-            for l in next_comb:
-                res.append([x] + l)
 
-        return res
+        def helper(nums, t: int):
+            if len(nums) == 1:
+                if t % nums[0] == 0:
+                    return [nums * (t // nums[0])]
+                else:
+                    return []
+            
+            res = []
+            for i, x in enumerate(nums):
+                if x > t:
+                    return res
+                elif x == t:
+                    res.append([x])
+                    return res
+                
+                next_comb = helper(nums[i:], t - x)
+                for l in next_comb:
+                    res.append([x] + l)
+
+            return res
+        
+        return helper(candidates, target)
