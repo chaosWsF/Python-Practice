@@ -48,4 +48,27 @@ Constraints:
 
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        pass
+        """
+        Recursion
+        Runtime: 44ms
+        """
+        if len(candidates) == 1:
+            if target % candidates[0] == 0:
+                return [candidates * (target // candidates[0])]
+            else:
+                return []
+        
+        candidates.sort()
+        res = []
+        for i, x in enumerate(candidates):
+            if x > target:
+                return res
+            elif x == target:
+                res.append([x])
+                return res
+            
+            next_comb = self.combinationSum(candidates[i:], target - x)
+            for l in next_comb:
+                res.append([x] + l)
+
+        return res
