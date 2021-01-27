@@ -28,5 +28,25 @@ Constraints:
 
 
 class Solution:
-    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-        pass
+    def permuteUnique(self, nums):
+        """
+        48ms
+        """
+        if len(nums) == 1:
+            return [nums]
+        
+        nums.sort()
+        # def helper(arr: List[int]) -> List[List[int]]:
+        def helper(arr):
+            if len(arr) == 1:
+                return [arr]
+        
+            res = []
+            for i in range(len(arr)):
+                if i == 0 or arr[i] != arr[i-1]:
+                    for l in helper(arr[:i] + arr[(i + 1):]):
+                        res.append([arr[i]] + l)
+            
+            return res
+
+        return helper(nums)
