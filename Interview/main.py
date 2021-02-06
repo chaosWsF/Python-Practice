@@ -1,5 +1,5 @@
 import csv, json, sys
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 
 
 class Solution:
@@ -41,26 +41,34 @@ class Solution:
 
     def combining(self):
         self.loading()
-        marks = self.marks
+
         d = []
-        for i in marks:
+        for i in self.marks:
             cur = {'id': int(i), 'name': self.students[i]['name']}
-            cur_avg = 0
-            cur_c = {}
-            for t in marks[i]:
-                test = self.tests[t['test_id']]
-                c_i = test['course_id']
-                c_w = test['weight']
+            cur_c = OrderedDict()
+            for t_mark in self.marks[i]:
+                t = self.tests[t_mark['test_id']]
+                c_i = t['course_id']
 
                 if c_i not in cur_c:
-                    tmp = self.courses[c_i]
-                    # TODO check total weights is 100 
-                    tmp['courseAverage'] = int(t['mark']) * int(c_w) / 100
-                else:
-                    cur_c[c_i]['courseAverage'] = 0
+                    cur_c[c_i] = self.courses[c_i]
+                    cur_c[c_i].update({'courseAverage': []})
+
+                cur_c[c_i]['courseAverage'].append((int(t['weight']), int(t_mark['mark'])))
             
-            cur['totalAverage'] = cur_avg
-            cur['courses'] = cur_c
+            gpa = []
+            for key, val in cur_c.items():
+                # check the sum of weights is 100
+                if sum([s[0] for s in val['courseAverage']]) == 100:
+                    grade = sum([(s[0] * s[1] / 100) for s in val['courseAverage']])
+                    cur_c[key]['courseAverage'] = round(grade, 2)
+                    gpa.append(grade)
+                else:
+                    # TODO Output ERROR
+                    cur_c[key]['courseAverage'] = 0
+            
+            cur.update({'totalAverage': round(sum(gpa) / len(gpa), 2)})
+            cur.update({'courses': list(cur_c.values())})
             d.append(cur)
         
         return d
