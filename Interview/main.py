@@ -74,9 +74,11 @@ class Solution:
         return d
     
     def writing(self):
-        res = self.combining()
+        d = self.combining()
         # TODO
-        json.dumps(res)
+        res = json.dumps({'students': d}, indent=2)
+        with open(self.output_file, 'w', encoding='utf-8') as fw:
+            fw.write(res)
 
 
 if __name__ == '__main__':
