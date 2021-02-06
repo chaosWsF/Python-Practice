@@ -75,7 +75,6 @@ class Solution:
     
     def writing(self):
         d = self.combining()
-        # TODO
         res = json.dumps({'students': d}, indent=2)
         with open(self.output_file, 'w', encoding='utf-8') as fw:
             fw.write(res)
