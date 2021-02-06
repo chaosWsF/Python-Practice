@@ -75,16 +75,10 @@ class Solution:
     
     def writing(self):
         res = self.combining()
+        # TODO
         json.dumps(res)
 
 
-testing_files = ['courses.csv', 'students.csv', 'tests.csv', 'marks.csv', 'output1.json']
-test1_dir = './Example1/'
-test2_dir = './Example2/'
-sol = Solution([test1_dir + s for s in testing_files])
-sol.combining()
-
-
-# if __name__ == '__main__':
-#     sol = Solution(sys.argv[1:6])
-    
+if __name__ == '__main__':
+    sol = Solution(sys.argv[1:6])
+    sol.writing()
