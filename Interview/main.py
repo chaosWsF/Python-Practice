@@ -15,67 +15,79 @@ class Solution:
         with open(self.courses_file) as f:
             f_reader = csv.DictReader(f)
             for row in f_reader:
-                key = row['id']
+                key = int(row['id'])
+                
+                if row['teacher'][0] == ' ':
+                    row['teacher'] = row['teacher'][1:]
+                
                 self.courses[key] = row
 
         self.students = {}
         with open(self.students_file) as f:
             f_reader = csv.DictReader(f)
             for row in f_reader:
-                key = row['id']
+                key = int(row['id'])
                 self.students[key] = row
 
-        self.tests = {}
+        self.tests = defaultdict(list)
         with open(self.tests_file) as f:
             f_reader = csv.DictReader(f)
             for row in f_reader:
-                key = row['id']
-                self.tests[key] = row
+                key = int(row['course_id'])
+                self.tests[key].append(row)
         
-        self.marks = defaultdict(list)
+        self.marks = {}
         with open(self.marks_file) as f:
             f_reader = csv.DictReader(f)
             for row in f_reader:
-                key = row['student_id']
-                self.marks[key].append(row)
+                key = (row['test_id'], int(row['student_id']))
+                self.marks[key] = row
 
     def combining(self):
-        self.loading()
-
         d = []
-        for i in self.marks:
-            cur = {'id': int(i), 'name': self.students[i]['name']}
-            cur_c = OrderedDict()
-            for t_mark in self.marks[i]:
-                t = self.tests[t_mark['test_id']]
-                c_i = t['course_id']
-
-                if c_i not in cur_c:
-                    cur_c[c_i] = self.courses[c_i]
-                    cur_c[c_i].update({'courseAverage': []})
-
-                cur_c[c_i]['courseAverage'].append((int(t['weight']), int(t_mark['mark'])))
+        for s_id in self.students:
+            tmp = self.students[s_id]
+            student = OrderedDict({
+                'id': int(tmp['id']),
+                'name': tmp['name']
+            })
             
-            gpa = []
-            for key, val in cur_c.items():
-                # check the sum of weights is 100
-                if sum([s[0] for s in val['courseAverage']]) == 100:
-                    grade = sum([(s[0] * s[1] / 100) for s in val['courseAverage']])
-                    cur_c[key]['courseAverage'] = round(grade, 2)
+            s_courses, gpa = [], []
+            for c_id in self.courses:
+                tmp = self.courses[c_id]
+                course = OrderedDict({
+                    'id': int(tmp['id']),
+                    'name': tmp['name'],
+                    'teacher': tmp['teacher']
+                })
+
+                grades = []
+                if self.tests.get(c_id) is not None:    # ensure the course has a test
+                    for t in self.tests[c_id]:
+                        if self.marks.get((t['id'], student['id'])) is not None:    # ensure the student did attend the test
+                            score = self.marks[(t['id'], student['id'])]['mark']
+                            grades.append(int(score) * int(t['weight']) / 100)
+                
+                if grades:    # ensure the student takes the course
+                    grade = sum(grades)
+                    course.update({'courseAverage': round(grade, 2)})
+                    s_courses.append(course)
                     gpa.append(grade)
-                else:
-                    # TODO Output ERROR
-                    cur_c[key]['courseAverage'] = 0
-            
-            cur.update({'totalAverage': round(sum(gpa) / len(gpa), 2)})
-            cur.update({'courses': list(cur_c.values())})
-            d.append(cur)
-        
+
+            student.update({"totalAverage": round(sum(gpa) / len(gpa), 2)})
+            student.update({"courses": s_courses})
+            d.append(student)
+
         return d
     
     def writing(self):
-        d = self.combining()
-        res = json.dumps({'students': d}, indent=2)
+        self.loading()
+        if any([sum([int(t['weight']) for t in ts]) != 100 for ts in self.tests.values()]):
+            res = json.dumps({"error": "Invalid course weights"}, indent=2)
+        else:
+            d = self.combining()
+            res = json.dumps({'students': d}, indent=2)
+        
         with open(self.output_file, 'w', encoding='utf-8') as fw:
             fw.write(res)
 
