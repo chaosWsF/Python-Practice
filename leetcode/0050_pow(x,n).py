@@ -18,15 +18,14 @@ Example 3:
     Explanation: 2-2 = 1/22 = 1/4 = 0.25
 
 Note:
-
-    -100.0 < x < 100.0
-    n is a 32-bit signed integer, within the range 
-    [−2^31, 2^31 − 1]
+    1. -100.0 < x < 100.0
+    2. n is a 32-bit signed integer, within the range 
+    3. [−2^31, 2^31 − 1]
 """
 
 
 class Solution:
-    def myPow1(self, x, n):
+    def myPow(self, x, n):
         """Binary Search"""
         if n == 0:
             return 1
