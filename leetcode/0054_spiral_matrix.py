@@ -25,27 +25,25 @@ Constraints:
 
 class Solution:
     def spiralOrder(self, matrix):
+        res = []
         def helper(r0, c0, r1, c1):
             for c in range(c0, c1 + 1):
-                yield r0, c
+                res.append(matrix[r0][c])
             
             for r in range(r0 + 1, r1 + 1):
-                yield r, c1
+                res.append(matrix[r][c1])
             
             # multi-row and multi-col
             if r0 < r1 and c0 < c1:
                 for c in range(c1 - 1, c0, -1):
-                    yield r1, c
+                    res.append(matrix[r1][c])
                 
                 for r in range(r1, r0, -1):
-                    yield r, c0
+                    res.append(matrix[r][c0])
         
-        res = []
         r0, c0, r1, c1 = 0, 0, len(matrix) - 1, len(matrix[0]) - 1
         while r0 <= r1 and c0 <= c1:
-            for r, c in helper(r0, c0, r1, c1):
-                res.append(matrix[r][c])
-            
+            helper(r0, c0, r1, c1)
             r0 += 1
             c0 += 1
             r1 -= 1
