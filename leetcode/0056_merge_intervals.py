@@ -23,4 +23,16 @@ Constraints:
 
 class Solution:
     def merge(self, intervals):
-        pass
+        intervals.sort()
+        i, n = 0, len(intervals)
+        res = []
+        while i < n:
+            a, b = intervals[i]
+            while i < n-1 and b >= intervals[i+1][0]:
+                b = max(b, intervals[i+1][1])
+                i += 1
+            
+            res.append([a, b])
+            i += 1
+        
+        return res
