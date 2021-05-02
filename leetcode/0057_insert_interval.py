@@ -43,7 +43,7 @@ import bisect
 
 
 class Solution:
-    def insert(self, intervals, newInterval):
+    def insert(self, intervals, newInterval):    # 68ms
         if not intervals:
             return [newInterval]
         
@@ -63,13 +63,6 @@ class Solution:
             newInterval[0] = intervals[l+1][0]
 
         if r > i:
-            newInterval[1] = intervals[r-1][1]
+            newInterval[1] = max(intervals[r-1][1], newInterval[1])
 
         return intervals[:l+1] + [newInterval] + intervals[r:]
-
-
-if __name__ == '__main':
-    intervals = [[1,5]]
-    newInterval = [0,6]
-    sol = Solution()
-    print(sol.insert(intervals, newInterval))
