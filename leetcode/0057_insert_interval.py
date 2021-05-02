@@ -66,3 +66,10 @@ class Solution:
             newInterval[1] = intervals[r-1][1]
 
         return intervals[:l+1] + [newInterval] + intervals[r:]
+
+
+if __name__ == '__main':
+    intervals = [[1,5]]
+    newInterval = [0,6]
+    sol = Solution()
+    print(sol.insert(intervals, newInterval))
