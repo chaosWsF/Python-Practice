@@ -31,34 +31,28 @@ Example 5:
 
 Constraints:
     1. 0 <= intervals.length <= 10**4
-    2. intervals[i].length == 2
-    3. 0 <= intervals[i][0] <= intervals[i][1] <= 10**5
-    4. intervals is sorted by intervals[i][0] in ascending order.
+    2. intervals[l].length == 2
+    3. 0 <= intervals[l][0] <= intervals[l][1] <= 10**5
+    4. intervals is sorted by intervals[l][0] in ascending order.
     5. newInterval.length == 2
     6. 0 <= newInterval[0] <= newInterval[1] <= 10**5
 """
 
 
 class Solution:
-    def insert1(self, intervals, newInterval):
-        """
-        Add new interval, and then use the codes in 0057_merge_intervals
-        Runtime: 80ms
-        """
+    def insert(self, intervals, newInterval):
         intervals.append(newInterval)
         intervals.sort()
-        i, n = 0, len(intervals)
+
+        l, r = 0, len(intervals)
         res = []
-        while i < n:
-            a, b = intervals[i]
-            while i < n-1 and b >= intervals[i+1][0]:
-                b = max(b, intervals[i+1][1])
-                i += 1
+        while l < r:
+            a, b = intervals[l]
+            while l < r-1 and b >= intervals[l+1][0]:
+                b = max(b, intervals[l+1][1])
+                l += 1
             
             res.append([a, b])
-            i += 1
+            l += 1
         
         return res
-
-    def insert2(self, intervals, newInterval):
-        pass
