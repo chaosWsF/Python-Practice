@@ -31,27 +31,38 @@ Example 5:
 
 Constraints:
     1. 0 <= intervals.length <= 10**4
-    2. intervals[l].length == 2
-    3. 0 <= intervals[l][0] <= intervals[l][1] <= 10**5
-    4. intervals is sorted by intervals[l][0] in ascending order.
+    2. intervals[i].length == 2
+    3. 0 <= intervals[i][0] <= intervals[i][1] <= 10**5
+    4. intervals is sorted by intervals[i][0] in ascending order.
     5. newInterval.length == 2
     6. 0 <= newInterval[0] <= newInterval[1] <= 10**5
 """
 
 
+from bisect import bisect
+
+
 class Solution:
     def insert(self, intervals, newInterval):
-        # TODO add inserting index of newInterval
+        if not intervals:
+            return [newInterval]
         
-        l, r = 0, len(intervals)
-        res = []
-        while l < r:
-            a, b = intervals[l]
-            while l < r-1 and b >= intervals[l+1][0]:
-                b = max(b, intervals[l+1][1])
-                l += 1
-            
-            res.append([a, b])
-            l += 1
+        a, b = newInterval
+        i = bisect(intervals, newInterval)
+        cur = []
+
+        l = i
+        while l >= 0 and intervals[l][1] >= a:
+            l -= 1
         
-        return res
+        if l >= 0:
+            cur.append(intervals[l][0])
+        
+        r = i
+        while r < len(intervals) and intervals[r][0] <= b:
+            r += 1
+        
+        if r < len(intervals):
+            cur.append(intervals[r][1])
+
+        return intervals[:l+1] + cur + intervals[r:]
