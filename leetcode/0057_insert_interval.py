@@ -41,9 +41,8 @@ Constraints:
 
 class Solution:
     def insert(self, intervals, newInterval):
-        intervals.append(newInterval)
-        intervals.sort()
-
+        # TODO add inserting index of newInterval
+        
         l, r = 0, len(intervals)
         res = []
         while l < r:
