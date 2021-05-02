@@ -39,7 +39,7 @@ Constraints:
 """
 
 
-from bisect import bisect
+import bisect
 
 
 class Solution:
@@ -48,21 +48,21 @@ class Solution:
             return [newInterval]
         
         a, b = newInterval
-        i = bisect(intervals, newInterval)
-        cur = []
+        i = bisect.bisect(intervals, newInterval)
 
-        l = i
+        l = i - 1
         while l >= 0 and intervals[l][1] >= a:
+            newInterval[1] = max(b, intervals[l][1])
             l -= 1
-        
-        if l >= 0:
-            cur.append(intervals[l][0])
         
         r = i
         while r < len(intervals) and intervals[r][0] <= b:
             r += 1
-        
-        if r < len(intervals):
-            cur.append(intervals[r][1])
 
-        return intervals[:l+1] + cur + intervals[r:]
+        if l < i - 1:
+            newInterval[0] = intervals[l+1][0]
+
+        if r > i:
+            newInterval[1] = intervals[r-1][1]
+
+        return intervals[:l+1] + [newInterval] + intervals[r:]
