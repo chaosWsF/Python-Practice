@@ -32,5 +32,29 @@ class ListNode:
 
 
 class Solution:
-    def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        pass
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:    # 28ms
+        if not head:
+            return head
+        
+        n = 1
+        cur = head
+        while cur.next:
+            n += 1
+            cur = cur.next
+        
+        k %= n
+        if k == 0:
+            return head
+        
+        back = cur = ListNode()
+        for _ in range(n-k):
+            cur.next = ListNode(head.val)
+            head = head.next
+            cur = cur.next
+
+        cur = head
+        while cur.next:
+            cur = cur.next
+        
+        cur.next = back.next
+        return head
