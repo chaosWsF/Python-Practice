@@ -19,7 +19,7 @@ Constraints:
 
 
 class Solution:
-    def generateMatrix(self, n: int):    # 28ms
+    def generateMatrix(self, n: int):    # 24ms
         matrix = [[0 for _ in range(n)] for _ in range(n)]
         x = 1
 
