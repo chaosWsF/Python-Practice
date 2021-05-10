@@ -35,4 +35,18 @@ Constraints:
 
 class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid) -> int:
-        pass
+        m, n = len(obstacleGrid), len(obstacleGrid[0])
+        grid = [[0 for _ in range(n)] for _ in range(m)]
+        for r in range(m):
+            for c in range(n):
+                if obstacleGrid[r][c] == 0:
+                    if r == 0 and c == 0:
+                        grid[r][c] = 1
+                    elif r == 0:
+                        grid[r][c] = grid[0][c-1]
+                    elif c == 0:
+                        grid[r][c] = grid[r-1][0]
+                    else:
+                        grid[r][c] = grid[r-1][c] + grid[r][c-1]
+        
+        return grid[-1][-1]
