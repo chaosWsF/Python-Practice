@@ -18,6 +18,26 @@ Example:
 
 
 class Solution:
+    def isHappy(self, n: int) -> bool:
+        """
+            tortoise and hare for detecting loop
+        """
+        def get_next(num: int) -> int:
+            total_sum = 0
+            while num > 0:
+                num, digit = divmod(num, 10)
+                total_sum += digit * digit
+            
+            return total_sum
+        
+        tortoise = n
+        hare = get_next(n)
+        while hare != 1 and hare != tortoise:
+            tortoise = get_next(tortoise)
+            hare = get_next(get_next(hare))
+        
+        return hare == 1
+    
     def isHappy1(self, n):    # 28ms
         def helper(n):
             res = 0

@@ -16,13 +16,48 @@ Example 2:
 
 
 class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        """
+            Boyer-Moore Voting Algorithm (try to proof by contradiction)
+            O(n), O(1)
+        """
+        count = 0
+        candidate = None
+        for num in nums:
+            if count == 0:
+                candidate = num
+            
+            if num == candidate:
+                count += 1
+            else:
+                count -= 1
+        
+        return candidate
+    
+    def majorityElement0(self, nums: List[int]) -> int:
+        """O(n), O(n)"""
+        d = {}    # or collections.Counter
+        for num in nums:
+            if num in d:
+                d[num] += 1
+            else:
+                d[num] = 1
+        
+        return max(d, key=d.get)
+    
     def majorityElement1(self, nums):
-        """160ms (99.45%) 14MB (100%)"""
+        """
+            O(nlgn), O(1) or O(n)
+            160ms (99.45%) 14MB (100%)
+        """
         nums.sort()
         return nums[len(nums) // 2]
 
     def majorityElement2(self, nums):
-        """Divide and Conquer (256ms 14.7MB)"""
+        """
+            O(nlgn), O(lgn)
+            Divide and Conquer (256ms 14.7MB)
+        """
         def helper(left=0, right=None):
             if left == right:
                 return nums[left]

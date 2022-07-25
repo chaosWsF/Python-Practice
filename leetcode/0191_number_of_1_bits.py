@@ -34,6 +34,17 @@ Follow up:
 
 
 class Solution:
+    def hammingWeight(self, n: int) -> int:
+        """
+            Brian kernighan's algorithm
+        """
+        c = 0
+        while n:
+            n &= n-1
+            c += 1
+        
+        return c
+    
     def hammingWeight1(self, n):
         return bin(n)[2:].count('1')
 

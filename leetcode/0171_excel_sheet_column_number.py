@@ -36,3 +36,8 @@ class Solution:
         for ss in s:
             res = res * 26 + ord(ss) - 64
         return res
+
+    def titleToNumber2(self, columnTitle: str) -> int:
+        d = dict(zip('ABCDEFGHIJKLMNOPQRSTUVWXYZ', range(1,27)))
+        n = len(columnTitle)
+        return sum([d[s]*26**(n-1-i) for i,s in enumerate(columnTitle)])
