@@ -18,6 +18,14 @@ Example:
 
 
 class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        res = [[1] * (n+1) for n in range(numRows)]
+        for i in range(2, numRows):
+            for j in range(1, i):
+                res[i][j] = res[i-1][j] + res[i-1][j-1]
+        
+        return res
+    
     def generate1(self, numRows):
         """half recurrence (24ms)"""
         result = []

@@ -35,6 +35,24 @@ class TreeNode:
 
 
 class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        # Iteratively
+        stack = [(root.left, root.right)]
+        curl, curr = root.left, root.right
+        while stack:
+            if not curl and not curr:
+                curl, curr = stack.pop()
+            elif not curl or not curr:
+                return False
+            elif curl.val != curr.val:
+                return False
+            else:
+                stack.append((curl.right, curr.left))
+                curl = curl.left
+                curr = curr.right
+        
+        return True
+
     def isSymmetric1(self, root):
         """DFS"""
         if not root:

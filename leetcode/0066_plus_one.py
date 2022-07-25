@@ -24,6 +24,26 @@ Example 2:
 
 
 class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        i = len(digits) - 1
+        digits[-1] += 1
+        while i >= 0:
+            if digits[i] < 10:
+                return digits
+            
+            digits[i] -= 10
+            if i > 0:
+                digits[i-1] += 1
+            else:
+                return [1] + digits
+            
+            i -= 1
+        
+        return digits
+    
+        # # lazy one
+        # return [int(s) for s in str(int(''.join([str(i) for i in digits]))+1)]
+    
     def plusOne1(self, digits):
         """directly plus one, then calibrate"""
         i = len(digits) - 1

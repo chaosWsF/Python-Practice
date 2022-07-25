@@ -21,7 +21,29 @@ Note:
 
 
 class Solution:
-    def longestCommonPrefix(self, strs):
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        loc = 0
+        for str_tuple in zip(*strs):
+            if len(set(str_tuple)) == 1:
+                loc += 1
+            else:
+                break
+        
+        return strs[0][:loc]
+
+        # res = []
+        # base = strs.pop()
+        # for i in range(len(base)):
+        #     base_i = base[i]
+        #     for s in strs:    # strs may be empty now
+        #         if i >= len(s) or s[i] != base_i:
+        #             return "".join(res)
+            
+        #     res.append(base_i)
+        
+        # return "".join(res)
+
+    def longestCommonPrefix1(self, strs):
         """use set to get common part"""
         if (not strs) or ("" in strs):
             return ""

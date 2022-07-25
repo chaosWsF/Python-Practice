@@ -54,6 +54,8 @@ class Solution:
                 
                 if pars[ss] == stack[-1]:
                     stack.pop()
+                else:
+                    return False
             else:
                 stack.append(ss)
         

@@ -31,14 +31,20 @@ class Solution:
             
             result_next = result_next.next
 
-        if l1:
-            result_next.next = l1
-
-        if l2:
-            result_next.next = l2
+        result_next.next = l1 or l2
 
         return result.next
 
+    def mergeTwoLists1(self, list1, list2):
+        "recursively"
+        if not list1 or not list2:
+            return list1 or list2
+        
+        if list1.val < list2.val:
+            return ListNode(val=list1.val, next=self.mergeTwoLists(list1.next, list2))
+        else:
+            return ListNode(val=list2.val, next=self.mergeTwoLists(list1, list2.next))
+    
     def mergeTwoLists2(self, l1, l2):
         """change into list"""
         l1 = linked2List(l1)

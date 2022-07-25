@@ -50,27 +50,37 @@ Internally you can think of this:
 """
 
 class Solution:
-    def removeDuplicates(self, nums):
-        """unique (ordered), assign"""
-        if not nums:
-            return 0
-
-        tmp = list(dict.fromkeys(nums))
-        nums[:len(tmp)] = tmp
-        nums[len(tmp):] = []
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 0
+        while i < len(nums)-1:
+            if nums[i] < nums[i+1]:
+                i += 1
+            else:
+                del nums[i+1]
         
         return len(nums)
+    
+    # def removeDuplicates1(self, nums):
+    #     """unique (ordered), assign"""
+    #     if not nums:
+    #         return 0
 
-    def removeDuplicates2(self, nums):
-        """unique (unordered), assign"""
-        if not nums:
-            return 0
-
-        tmp = set(nums)
-        nums[:len(tmp)] = sorted(list(tmp))    # no descending lists in test data
-        nums[len(tmp):] = []
+    #     tmp = list(dict.fromkeys(nums))
+    #     nums[:len(tmp)] = tmp
+    #     nums[len(tmp):] = []
         
-        return len(nums)
+    #     return len(nums)
+
+    # def removeDuplicates2(self, nums):
+    #     """unique (unordered), assign"""
+    #     if not nums:
+    #         return 0
+
+    #     tmp = set(nums)
+    #     nums[:len(tmp)] = sorted(list(tmp))    # no descending lists in test data
+    #     nums[len(tmp):] = []
+        
+    #     return len(nums)
 
     def removeDuplicates3(self, nums):
         """remove one by one"""

@@ -27,6 +27,16 @@ Example 2:
 
 
 class Solution:
+    def climbStairs(self, n: int) -> int:
+        a, b = 1, 1
+        for _ in range(n):
+            a, b = b, a+b
+            
+        return a
+
+        # sqrt_5 = 5 ** .5
+        # return int((((1+sqrt_5)/2)**(n+1) - ((1-sqrt_5)/2)**(n+1)) / sqrt_5)
+    
     def climbStairs1(self, n):
         """Combination Formula (builtin)"""
         from math import comb

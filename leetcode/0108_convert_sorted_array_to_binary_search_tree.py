@@ -29,7 +29,39 @@ Example:
 #         self.right = None
 
 class Solution:
-    def sortedArrayToBST(self, nums: List[int]) -> TreeNode:
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        # Iteratively, preorder
+        res = TreeNode()
+        stack = [(res, 0, len(nums))]
+        while stack:
+            cur, l, r = stack.pop()
+            if l < r:
+                mid = (l+r) // 2
+                cur.val = nums[mid]
+                if l < mid:
+                    cur.left = TreeNode()
+                
+                if mid+1 < r:
+                    cur.right = TreeNode()
+                
+                stack.append((cur.right, mid+1, r))
+                stack.append((cur.left, l, mid))
+        
+        return res
+        
+        # # Recursively
+        # if len(nums) == 0:
+        #     return None
+        # elif len(nums) == 1:
+        #     return TreeNode(val=nums[0])
+        # else:
+        #     return TreeNode(
+        #         val=nums[len(nums)//2],
+        #         left=self.sortedArrayToBST(nums[:len(nums)//2]),
+        #         right=self.sortedArrayToBST(nums[len(nums)//2+1:])
+        #     )
+    
+    def sortedArrayToBST1(self, nums: List[int]) -> TreeNode:
         """DFS"""
         if not nums:
             return None

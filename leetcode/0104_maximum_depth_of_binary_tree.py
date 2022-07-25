@@ -28,7 +28,32 @@ return its depth = 3.
 #         self.right = None
 
 class Solution:
-    def maxDepth(self, root):
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        # Iteratively
+        max_depth = 0
+        
+        stack = []
+        path_depth = 0
+        while root or stack:
+            if root:
+                path_depth += 1
+                stack.append((root,path_depth))
+                root = root.left
+            else:
+                root, path_depth = stack.pop()
+                root = root.right
+                max_depth = max(max_depth, path_depth)
+        
+        return max_depth
+    
+    def maxDepth1(self, root: Optional[TreeNode]) -> int:
+        # Recursively
+        if not root:
+            return 0
+        else:
+            return 1+max(self.maxDepth(root.left), self.maxDepth(root.right))
+
+    def maxDepth2(self, root):
         """DFS"""
         if not root:
             return 0

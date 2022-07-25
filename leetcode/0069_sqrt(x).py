@@ -22,7 +22,22 @@ Example 2:
 
 
 class Solution:
-    def mySqrt(self, x):
+    def mySqrt(self, x: int) -> int:
+        if x == 0 or x == 1:
+            return x
+        
+        l, r = 0, x
+        while l <= r:
+            mid = (l+r) // 2
+            val = mid * mid
+            if val <= x < val + 2*mid + 1:
+                return mid
+            elif val > x:
+                r = mid
+            else:
+                l = mid
+    
+    def mySqrt1(self, x):
         """Not use it!"""
         return int(x**.5)
     
