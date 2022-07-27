@@ -23,6 +23,34 @@ Follow up:
 #         self.next = None
 
 class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        """
+            O(n) time and O(1) -> combine two past problems:
+                1. fast & slow moving to find loop
+                2. reverse linked list
+        """
+        tortoise = head    # first half
+        prev_tortoise = None
+        hare = head
+        while hare and hare.next:
+            hare = hare.next.next
+            
+            # reversing the first half
+            next_tortoise = tortoise.next
+            tortoise.next = prev_tortoise
+            
+            prev_tortoise = tortoise
+            tortoise = next_tortoise
+        
+        if hare:    # odd length
+            tortoise = tortoise.next
+        
+        while tortoise and tortoise.val == prev_tortoise.val:
+            tortoise = tortoise.next
+            prev_tortoise = prev_tortoise.next
+        
+        return not prev_tortoise
+    
     def isPalindrome1(self, head):
         stack = []
         while head:
