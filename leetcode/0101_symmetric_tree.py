@@ -36,20 +36,20 @@ class TreeNode:
 
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
-        # Iteratively
+        """Iteratively"""
         stack = [(root.left, root.right)]
-        curl, curr = root.left, root.right
         while stack:
-            if not curl and not curr:
-                curl, curr = stack.pop()
-            elif not curl or not curr:
+            l, r = stack.pop()
+            
+            if not l and not r:
+                pass
+            elif not l or not r:
                 return False
-            elif curl.val != curr.val:
+            elif l.val != r.val:
                 return False
             else:
-                stack.append((curl.right, curr.left))
-                curl = curl.left
-                curr = curr.right
+                stack.append((l.left, r.right))
+                stack.append((l.right, r.left))
         
         return True
 

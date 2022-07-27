@@ -24,10 +24,10 @@ class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
         loc = 0
         for str_tuple in zip(*strs):
-            if len(set(str_tuple)) == 1:
-                loc += 1
-            else:
-                break
+            if len(set(str_tuple)) != 1:
+                return strs[0][:loc]
+            
+            loc += 1
         
         return strs[0][:loc]
 
