@@ -18,7 +18,34 @@ Follow up:
 #         self.next = None
 
 class Solution:
-    def reverseList(self, head):
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        Natural solutions (iteratively and recursively)
+        """
+        # iteratively
+        prev = None
+        while head:
+            next_node = head.next
+            head.next = prev
+
+            prev = head
+            head = next_node
+        
+        return prev
+        
+        # # recursively
+        # def helper(prev, cur):
+        #     if not cur:
+        #         return prev, cur
+            
+        #     next_node = cur.next
+        #     cur.next = prev
+        #     return helper(cur, next_node)
+        
+        # res, _ = helper(None, head)
+        # return res
+    
+    def reverseList1(self, head):
         """recursively"""
         if not (head and head.next):
             return head
