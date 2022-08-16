@@ -17,21 +17,22 @@ Note:
     The result can be in any order.
 
 Follow up:
-
-    What if the given array is already sorted? How would you optimize your algorithm?
-    What if nums1's size is small compared to nums2's size? Which algorithm is better?
-    What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?
+    What if the given array is already sorted? How would you optimize your algorithm?    self.intersect2
+    What if nums1's size is small compared to nums2's size? Which algorithm is better?    self.intersect1
+    What if elements of nums2 are stored on disk, and the memory is limited such that you cannot load all elements into the memory at once?    sub-range
 """
-from collections import Counter
 
 
 class Solution:
     def intersect1(self, nums1, nums2):  # 40ms
-        if len(nums1) < len(nums2):
-            nums1, nums2 = nums2, nums1
+        if len(nums1) > len(nums2):
+            return self.intersect1(nums2, nums1)
+        
+        nums1_counter = {}
+        for n in nums1:
+            nums1_counter[n] = nums1_counter.get(n, 0) + 1
         
         res = []
-        nums1_counter = Counter(nums1)
         for n in nums2:
             if (n in nums1_counter) and (nums1_counter[n] != 0):
                 nums1_counter[n] -= 1
@@ -42,6 +43,7 @@ class Solution:
     def intersect2(self, nums1, nums2):  # 52ms
         nums1.sort()
         nums2.sort()
+
         res = []
         i = 0
         j = 0

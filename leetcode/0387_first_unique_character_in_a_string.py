@@ -17,7 +17,21 @@ from collections import Counter
 
 
 class Solution:
-    def firstUniqChar(self, s):  # 52ms
+    def firstUniqChar(self, s: str) -> int:
+        d = {}
+        for i in range(len(s)):
+            if s[i] in d:
+                d[s[i]][1] += 1
+            else:
+                d[s[i]] = [i, 1]
+        
+        for ss in d:
+            if d[ss][1] == 1:
+                return d[ss][0]
+        
+        return -1
+    
+    def firstUniqChar1(self, s):  # 52ms
         sc = Counter(s)
         for ss in sc:
             if sc[ss] == 1:
